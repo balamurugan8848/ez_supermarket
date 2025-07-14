@@ -799,6 +799,7 @@
   },
   {
    "collapsible": 1,
+   "collapsible_depends_on": "eval:doc.items && doc.items.length > 0",
    "fieldname": "supplier_item_insights_section",
    "fieldtype": "Section Break",
    "label": "Supplier Item Insights"
@@ -818,7 +819,7 @@
    "link_fieldname": "custom_reference_document"
   }
  ],
- "modified": "2025-07-14 16:24:06.163860",
+ "modified": "2025-07-14 19:01:12.262293",
  "modified_by": "Administrator",
  "module": "Ez-Supermarket",
  "name": "Purchase Master",

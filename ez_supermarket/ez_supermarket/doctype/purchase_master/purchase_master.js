@@ -195,86 +195,99 @@ function calculateTotalPurchaseQty(item_code, numberOfMonths) {
   });
 }
 function fetchSupplierItems(frm) {
-  var supplier = frm.doc.supplier;
+  const supplier = frm.doc.supplier;
+
   frappe.call({
-    method:
-      "ez_supermarket.ez_supermarket.custom.purchase_order.purchase_order.fetch_supplier_items",
-    args: {
-      supplier: frm.doc.supplier,
-    },
+    method: "ez_supermarket.ez_supermarket.custom.purchase_order.purchase_order.fetch_supplier_items",
+    args: { supplier },
     callback: function (r) {
-      if (r.message && r.message.length > 0) {
-        frm.doc.items = [];
-
-        // HTML table init
-        let html = `
-          <div style="overflow-x:auto; max-height:400px; overflow-y:auto;">
-            <table class="table table-bordered table-sm table-hover table-striped text-nowrap">
-              <thead class="bg-light" style="position:sticky;top:0;z-index:1;">
-                <tr class="text-center align-middle">
-                  <th rowspan="2">Item Code</th>
-                  <th colspan="2">Stock Qty</th>
-                  <th colspan="2">Item Info</th>
-                  <th colspan="3">Sales</th>
-                  <th colspan="3">Purchases</th>
-                  <th colspan="2">Avg (3M)</th>
-                </tr>
-                <tr class="text-center align-middle">
-                  <th>Stall</th>
-                  <th>Store</th>
-                  <th>MRP</th>
-                  <th>Tax %</th>
-                  <th>CM</th><th>LM</th><th>PLM</th>
-                  <th>CM</th><th>LM</th><th>PLM</th>
-                  <th>Sales</th><th>Purchase</th>
-                </tr>
-              </thead>
-              <tbody>`;
-
-        $.each(r.message, function (i, item) {
-          var child = frm.add_child("items");
-          child.item_code = item.item_code;
-          frm.script_manager.trigger("item_code", child.doctype, child.name);
-
-          child.custom_available_qty = item.custom_available_qty;
-          child.custom_last_month_sales = item.custom_last_month_sales;
-          child.custom_previous_last_month_sales = item.custom_previous_last_month_sales;
-          child.custom_current_month_sales_2 = item.custom_current_month_sales_2;
-          child.custom_tax = item.custom_tax;
-          child.custom_mrp = item.custom_mrp;
-          child.custom_last_month_purchase = item.custom_last_month_purchase;
-          child.custom_previous_last_month_purchase = item.custom_previous_last_month_purchase;
-          child.custom_current_month_purchase = item.custom_current_month_purchase;
-
-          // Skip average calculations that use raw numbers — use what you already had working
-
-          html += `<tr>
-            <td>${item.item_code}</td>
-            <td>${item.custom_available_qty?.split(" / ")[0] ?? "-"}</td>
-            <td>${item.custom_available_qty?.split(" / ")[1] ?? "-"}</td>
-            <td>${item.custom_mrp ?? "-"}</td>
-            <td>${item.custom_tax ?? "-"}</td>
-            <td>${item.custom_current_month_sales_2 ?? "-"}</td>
-            <td>${item.custom_last_month_sales ?? "-"}</td>
-            <td>${item.custom_previous_last_month_sales ?? "-"}</td>
-            <td>${item.custom_current_month_purchase ?? "-"}</td>
-            <td>${item.custom_last_month_purchase ?? "-"}</td>
-            <td>${item.custom_previous_last_month_purchase ?? "-"}</td>
-            <td><span class="badge badge-primary">${child.custom_average_sales_last_3_months?.toFixed(2) ?? "0.00"}</span></td>
-            <td><span class="badge badge-success">${child.custom_average_purchase_last_3_months?.toFixed(2) ?? "0.00"}</span></td>
-          </tr>`;
-        });
-
-        html += "</tbody></table></div>";
-
-        frm.refresh_field("items");
-        frm.fields_dict.supplier_item_table.$wrapper.html(html);
-      } else {
+      if (!r.message || r.message.length === 0) {
         frappe.msgprint("No items found for supplier.");
         frm.fields_dict.supplier_item_table.$wrapper.html("<p>No data available.</p>");
+        return;
       }
-    },
+
+      frm.doc.items = [];
+
+      // Extract quantity from "qty UOM / Rs rate"
+      function parseQty(text) {
+        if (!text || typeof text !== "string") return 0;
+        const match = text.trim().match(/^([\d.]+)/);
+        return match ? parseFloat(match[1]) : 0;
+      }
+
+      let html = `
+        <div style="overflow-x:auto; max-height:400px; overflow-y:auto;">
+          <table class="table table-bordered table-sm table-hover table-striped text-nowrap">
+            <thead class="bg-light sticky-top">
+              <tr class="text-center align-middle" style="background:#e9ecef;">
+                <th rowspan="2">Item Code</th>
+                <th colspan="2" style="background:#f7fafc;">Stock Qty</th>
+                <th colspan="2" style="background:#f8f9fa;">Item Info</th>
+                <th colspan="3" style="background:#e2f0d9;">Sales</th>
+                <th colspan="3" style="background:#fde9ea;">Purchases</th>
+                <th colspan="2" style="background:#fef9ec;">Avg (3M)</th>
+              </tr>
+              <tr class="text-center align-middle small text-muted">
+                <th>Stall</th><th>Store</th>
+                <th>MRP</th><th>Tax %</th>
+                <th>CM</th><th>LM</th><th>PLM</th>
+                <th>CM</th><th>LM</th><th>PLM</th>
+                <th>Sales</th><th>Purchase</th>
+              </tr>
+            </thead>
+            <tbody>`;
+
+      $.each(r.message, function (i, item) {
+        const s1 = parseQty(item.custom_current_month_sales_2);
+        const s2 = parseQty(item.custom_last_month_sales);
+        const s3 = parseQty(item.custom_previous_last_month_sales);
+        const p1 = parseQty(item.custom_current_month_purchase);
+        const p2 = parseQty(item.custom_last_month_purchase);
+        const p3 = parseQty(item.custom_previous_last_month_purchase);
+
+        const avg_sales = (s1 + s2 + s3) / 3;
+        const avg_purchase = (p1 + p2 + p3) / 3;
+
+        const child = frm.add_child("items");
+        child.item_code = item.item_code;
+        frm.script_manager.trigger("item_code", child.doctype, child.name);
+
+        Object.assign(child, {
+          custom_available_qty: item.custom_available_qty,
+          custom_last_month_sales: item.custom_last_month_sales,
+          custom_previous_last_month_sales: item.custom_previous_last_month_sales,
+          custom_current_month_sales_2: item.custom_current_month_sales_2,
+          custom_tax: item.custom_tax,
+          custom_mrp: item.custom_mrp,
+          custom_last_month_purchase: item.custom_last_month_purchase,
+          custom_previous_last_month_purchase: item.custom_previous_last_month_purchase,
+          custom_current_month_purchase: item.custom_current_month_purchase,
+          custom_average_sales_last_3_months: avg_sales,
+          custom_average_purchase_last_3_months: avg_purchase
+        });
+
+        html += `<tr class="text-center align-middle">
+          <td><strong>${item.item_code}</strong></td>
+          <td>${item.custom_available_qty?.split(" / ")[0] ?? "-"}</td>
+          <td>${item.custom_available_qty?.split(" / ")[1] ?? "-"}</td>
+          <td>${item.custom_mrp ?? "-"}</td>
+          <td>${item.custom_tax ?? "-"}</td>
+          <td>${item.custom_current_month_sales_2 ?? "-"}</td>
+          <td>${item.custom_last_month_sales ?? "-"}</td>
+          <td>${item.custom_previous_last_month_sales ?? "-"}</td>
+          <td>${item.custom_current_month_purchase ?? "-"}</td>
+          <td>${item.custom_last_month_purchase ?? "-"}</td>
+          <td>${item.custom_previous_last_month_purchase ?? "-"}</td>
+          <td><span class="badge bg-success fs-6">${avg_sales.toFixed(2)}</span></td>
+          <td><span class="badge bg-warning text-dark fs-6">${avg_purchase.toFixed(2)}</span></td>
+        </tr>`;
+      });
+
+      html += "</tbody></table></div>";
+      frm.refresh_field("items");
+      frm.fields_dict.supplier_item_table.$wrapper.html(html);
+    }
   });
 }
-
 function purchaseqtycal(frm) {}
