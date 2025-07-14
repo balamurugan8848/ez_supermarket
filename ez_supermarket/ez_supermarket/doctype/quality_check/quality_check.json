@@ -1,0 +1,236 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "CEBA-QC-.####",
+ "creation": "2023-07-09 22:18:13.084043",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "manual_inspection",
+  "accepted_warehouse",
+  "rejected_warehouse",
+  "column_break_kmnrq",
+  "status",
+  "inspection_type",
+  "document_type",
+  "ref_document",
+  "supplier",
+  "section_break_jnx2a",
+  "accepted_item",
+  "quality_check_criteria_section",
+  "product_appearence",
+  "good",
+  "bad",
+  "packaging",
+  "ensure_that_all_products_have_accurate_labeling",
+  "freshness",
+  "description",
+  "column_break_agpfq",
+  "proper_storage",
+  "product_weightquantity",
+  "supplier_ratings",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "default": "0",
+   "fieldname": "manual_inspection",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Manual Inspection"
+  },
+  {
+   "fieldname": "accepted_warehouse",
+   "fieldtype": "Link",
+   "label": "Accepted Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejected_warehouse",
+   "fieldtype": "Link",
+   "label": "Rejected Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_kmnrq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nAccepted\nRejected\nPartially Accepted"
+  },
+  {
+   "fieldname": "inspection_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Inspection Type",
+   "options": "\nIncoming\nOutgoing\nInProcess",
+   "reqd": 1
+  },
+  {
+   "fieldname": "document_type",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Document Type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "ref_document",
+   "fieldtype": "Dynamic Link",
+   "hidden": 1,
+   "label": "Ref Document",
+   "options": "document_type"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_jnx2a",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "accepted_item",
+   "fieldtype": "Table",
+   "label": "Accepted Item",
+   "options": "Accepted Items"
+  },
+  {
+   "fieldname": "quality_check_criteria_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Quality Check Criteria"
+  },
+  {
+   "fieldname": "product_appearence",
+   "fieldtype": "Read Only",
+   "label": "Product Appearence"
+  },
+  {
+   "default": "0",
+   "fieldname": "good",
+   "fieldtype": "Check",
+   "label": "Good",
+   "read_only_depends_on": "eval:doc.bad==1;"
+  },
+  {
+   "default": "0",
+   "fieldname": "bad",
+   "fieldtype": "Check",
+   "label": "Bad",
+   "read_only_depends_on": "eval:doc.good==1;"
+  },
+  {
+   "fieldname": "packaging",
+   "fieldtype": "Section Break",
+   "label": "Packaging"
+  },
+  {
+   "default": "0",
+   "fieldname": "ensure_that_all_products_have_accurate_labeling",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Ensure that all products have accurate labeling"
+  },
+  {
+   "fieldname": "freshness",
+   "fieldtype": "Int",
+   "label": "Freshness level (0-5)"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_agpfq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "proper_storage",
+   "fieldtype": "Select",
+   "label": "Proper Storage",
+   "options": "\nWarehouse\nCoolRoom"
+  },
+  {
+   "fieldname": "product_weightquantity",
+   "fieldtype": "Float",
+   "label": "Total Weight"
+  },
+  {
+   "fieldname": "supplier_ratings",
+   "fieldtype": "Rating",
+   "label": "Supplier Ratings"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Quality Check",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-01-23 15:53:41.622351",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Quality Check",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administrator",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,28 @@
+{
+ "attach_print": 0,
+ "channel": "System Notification",
+ "condition": "",
+ "creation": "2024-01-19 14:51:27.347581",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Clients Request",
+ "enabled": 1,
+ "event": "Submit",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Review the Casa Request and Take action.",
+ "modified": "2024-01-19 14:51:27.347581",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Clients Request",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_role": "PTPS_EXECUTIVE_1"
+  }
+ ],
+ "send_system_notification": 1,
+ "send_to_all_assignees": 0,
+ "subject": "New Clients Request has been Submitted {{ doc.name }} . "
+}

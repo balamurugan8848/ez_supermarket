@@ -1,0 +1,461 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-02-26 13:48:21.750906",
+  "name": "Requested",
+  "style": "",
+  "workflow_state_name": "Requested"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-03-08 12:09:49.813390",
+  "name": "Send to Supplier",
+  "style": "",
+  "workflow_state_name": "Send to Supplier"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-03-08 12:21:57.456177",
+  "name": "Sent to Supplier",
+  "style": "Info",
+  "workflow_state_name": "Sent to Supplier"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-03-08 12:10:48.030308",
+  "name": "Material Received",
+  "style": "",
+  "workflow_state_name": "Material Received"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-03-08 12:23:42.640353",
+  "name": "Purchase Completed",
+  "style": "Success",
+  "workflow_state_name": "Purchase Completed"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-03-08 12:12:22.855932",
+  "name": "Awaiting Response",
+  "style": "",
+  "workflow_state_name": "Awaiting Response"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-03-08 12:23:32.657035",
+  "name": "Check Details",
+  "style": "Primary",
+  "workflow_state_name": "Check Details"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-01-10 14:44:55.265585",
+  "name": "QC Completed",
+  "style": "",
+  "workflow_state_name": "QC Completed"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-01-10 17:32:04.392004",
+  "name": "QC Pending",
+  "style": "",
+  "workflow_state_name": "QC Pending"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-11-27 11:43:14.050863",
+  "name": "Purchase Received",
+  "style": "",
+  "workflow_state_name": "Purchase Received"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-11-27 13:20:41.933409",
+  "name": "Details Updated",
+  "style": "",
+  "workflow_state_name": "Details Updated"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-11-27 13:20:56.199605",
+  "name": "Purchase Confirmed",
+  "style": "",
+  "workflow_state_name": "Purchase Confirmed"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-27 15:00:52.368496",
+  "name": "Order Sent",
+  "style": "",
+  "workflow_state_name": "Order Sent"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-27 15:05:10.594044",
+  "name": "Set Prices",
+  "style": "",
+  "workflow_state_name": "Set Prices"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-27 15:05:36.851857",
+  "name": "Order Completed",
+  "style": "",
+  "workflow_state_name": "Order Completed"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-27 15:01:33.461832",
+  "name": "Order Received",
+  "style": "",
+  "workflow_state_name": "Order Received"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-27 15:03:39.701817",
+  "name": "Order Sent to Supplier",
+  "style": "",
+  "workflow_state_name": "Order Sent to Supplier"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-11-27 11:41:26.411209",
+  "name": "Update Price",
+  "style": "",
+  "workflow_state_name": "Update Price"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "question-sign",
+  "modified": "2023-08-31 10:41:44.840569",
+  "name": "Pending",
+  "style": "",
+  "workflow_state_name": "Pending"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "ok-sign",
+  "modified": "2023-08-31 10:41:44.842950",
+  "name": "Approved",
+  "style": "Success",
+  "workflow_state_name": "Approved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "remove",
+  "modified": "2023-08-31 10:41:44.845657",
+  "name": "Rejected",
+  "style": "Danger",
+  "workflow_state_name": "Rejected"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:31:34.741188",
+  "name": "Draft",
+  "style": "",
+  "workflow_state_name": "Draft"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.195129",
+  "name": "Sent to Kitchen",
+  "style": "",
+  "workflow_state_name": "Sent to Kitchen"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.257684",
+  "name": "Sent to Preparation",
+  "style": "",
+  "workflow_state_name": "Sent to Preparation"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.268047",
+  "name": "Cooked",
+  "style": "",
+  "workflow_state_name": "Cooked"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.279029",
+  "name": "Send to Kitchen",
+  "style": "",
+  "workflow_state_name": "Send to Kitchen"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.288368",
+  "name": "Send to Preparation",
+  "style": "",
+  "workflow_state_name": "Send to Preparation"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.306791",
+  "name": "Pending Approval from HR Executive",
+  "style": "",
+  "workflow_state_name": "Pending Approval from HR Executive"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.316075",
+  "name": "Pending Approval from Executive 1",
+  "style": "",
+  "workflow_state_name": "Pending Approval from Executive 1"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.326932",
+  "name": "Rejected by HR Executive",
+  "style": "",
+  "workflow_state_name": "Rejected by HR Executive"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.349352",
+  "name": "Approved by HR Executive",
+  "style": "",
+  "workflow_state_name": "Approved by HR Executive"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.366491",
+  "name": "Stock Not Available",
+  "style": "",
+  "workflow_state_name": "Stock Not Available"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.376014",
+  "name": "Stock Available",
+  "style": "",
+  "workflow_state_name": "Stock Available"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.387373",
+  "name": "Checking for stock",
+  "style": "",
+  "workflow_state_name": "Checking for stock"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.395898",
+  "name": "Budget Rejected by Finance",
+  "style": "",
+  "workflow_state_name": "Budget Rejected by Finance"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.404080",
+  "name": "Budget Approved by Finance",
+  "style": "",
+  "workflow_state_name": "Budget Approved by Finance"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.413112",
+  "name": "Rejected by SCM Manager",
+  "style": "",
+  "workflow_state_name": "Rejected by SCM Manager"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.421336",
+  "name": "Approved by SCM Manager",
+  "style": "",
+  "workflow_state_name": "Approved by SCM Manager"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.439981",
+  "name": "Rejected by Sales Manager",
+  "style": "",
+  "workflow_state_name": "Rejected by Sales Manager"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.449473",
+  "name": "Approved by Sales Manager",
+  "style": "",
+  "workflow_state_name": "Approved by Sales Manager"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.459533",
+  "name": "Rejected by Finance Manager",
+  "style": "",
+  "workflow_state_name": "Rejected by Finance Manager"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.468552",
+  "name": "Approved by Finance Manager",
+  "style": "",
+  "workflow_state_name": "Approved by Finance Manager"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.478039",
+  "name": "Rejected by Executive 2",
+  "style": "",
+  "workflow_state_name": "Rejected by Executive 2"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.488460",
+  "name": "Approved by Executive 2",
+  "style": "",
+  "workflow_state_name": "Approved by Executive 2"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.497272",
+  "name": "Rejected by Executive 1",
+  "style": "",
+  "workflow_state_name": "Rejected by Executive 1"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.506838",
+  "name": "Approved by Executive 1",
+  "style": "",
+  "workflow_state_name": "Approved by Executive 1"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.517633",
+  "name": "Rejected by Purchase Manager",
+  "style": "",
+  "workflow_state_name": "Rejected by Purchase Manager"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.529054",
+  "name": "Approved by Purchase Manager",
+  "style": "",
+  "workflow_state_name": "Approved by Purchase Manager"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-08-31 14:54:35.538327",
+  "name": "Pending Approval",
+  "style": "",
+  "workflow_state_name": "Pending Approval"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-02-09 12:15:28.333754",
+  "name": "Initiate 2nd QC",
+  "style": "",
+  "workflow_state_name": "Initiate 2nd QC"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-02-09 12:14:27.916502",
+  "name": "Initiate QC",
+  "style": "",
+  "workflow_state_name": "Initiate QC"
+ }
+]

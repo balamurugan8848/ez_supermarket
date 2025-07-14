@@ -1,0 +1,27 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2023-07-18 11:09:44.788431",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letterhead": null,
+ "modified": "2024-01-23 16:51:13.051414",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "AV Budget Info",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT\n  YEAR(posting_date) AS 'Financial Year',\n  SUM(debit) AS Debits, \n  SUM(credit) AS Credits,\n  SUM((debit - credit)) AS 'Total Expenses'\nFROM `tabGL Entry` \nWHERE docstatus = 1\nAND posting_date BETWEEN (\n  SELECT year_start_date \n  FROM `tabFiscal Year` \n  WHERE disabled = 0 \n  ORDER BY year_start_date DESC \n  LIMIT 1\n) AND (\n  SELECT year_end_date\n  FROM `tabFiscal Year` \n  WHERE disabled = 0\n  ORDER BY year_start_date DESC\n  LIMIT 1  \n)\nAND account IN (\n  SELECT name FROM `tabAccount`\n  WHERE account_type IN ('Expense Account', 'Cost of Goods Sold', 'Stock Adjustment')  \n)\nGROUP BY fiscal_year\nORDER BY fiscal_year",
+ "ref_doctype": "AV Budget",
+ "report_name": "AV Budget Info",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}

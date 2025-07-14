@@ -1,0 +1,39 @@
+{
+ "attach_print": 0,
+ "channel": "System Notification",
+ "creation": "2024-02-01 15:26:44.463728",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Stall Refill Request",
+ "enabled": 1,
+ "event": "Submit",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Add your message here",
+ "modified": "2024-02-01 18:03:51.940353",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "New Stall Request",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_role": "Store Keeper"
+  },
+  {
+   "receiver_by_role": "Store 1 Keeper"
+  },
+  {
+   "receiver_by_role": "Store 2 Keeper"
+  },
+  {
+   "receiver_by_role": "Store 3 Keeper"
+  },
+  {
+   "receiver_by_role": "Store 4 Keeper"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "subject": "New Stall Request {{ doc.name }} Has Been Raised...!"
+}

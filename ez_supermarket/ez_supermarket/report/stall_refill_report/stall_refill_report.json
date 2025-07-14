@@ -1,0 +1,30 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2023-12-21 17:24:39.300749",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letterhead": null,
+ "modified": "2023-12-21 17:24:39.300749",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Stall Refill Report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT\r\n    si.item_code AS 'Item Code',\r\n    si.warehouse AS 'Warehouse',\r\n    si.qty AS 'Quantity Sold',\r\n    i.custom_location AS 'Custom Location',\r\n    i.custom_max_qty AS 'Custom Max Quantity',\r\n    (i.custom_max_qty - si.qty) AS 'Qty to be Refilled'\r\nFROM\r\n    `tabSales Invoice Item` si\r\nJOIN\r\n    `tabItem` i ON si.item_code = i.item_code\r\nWHERE\r\n    si.docstatus = 1\r\n",
+ "ref_doctype": "Sales Invoice",
+ "report_name": "Stall Refill Report",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  }
+ ]
+}

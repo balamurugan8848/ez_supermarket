@@ -1,0 +1,216 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-08-29 11:32:38.697364",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "company",
+  "payment_to",
+  "column_break_1",
+  "posting_date",
+  "set_posting_time",
+  "accounting_dimensions_section",
+  "accounting_col",
+  "default_cost_center",
+  "expense_details_section",
+  "expenses",
+  "section_break_8",
+  "quantity",
+  "column_break_20",
+  "additional_information_section",
+  "remarks",
+  "approved_by",
+  "column_break_8",
+  "mode_of_payment",
+  "payment_reference",
+  "clearance_date",
+  "status",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "print_hide": 1,
+   "read_only": 1,
+   "remember_last_selected_value": 1,
+   "report_hide": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "payment_to",
+   "fieldtype": "Data",
+   "label": "Payment Made To",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "read_only": 1,
+   "read_only_depends_on": "eval: doc.set_posting_time == 0;"
+  },
+  {
+   "default": "0",
+   "fieldname": "set_posting_time",
+   "fieldtype": "Check",
+   "label": "Edit Posting Date"
+  },
+  {
+   "fieldname": "accounting_dimensions_section",
+   "fieldtype": "Section Break",
+   "label": "Accounting Dimensions"
+  },
+  {
+   "fieldname": "accounting_col",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "description": "Applies to all expenses below unless specified differently",
+   "fieldname": "default_cost_center",
+   "fieldtype": "Link",
+   "label": "Default Cost Center",
+   "options": "Cost Center",
+   "remember_last_selected_value": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "expense_details_section",
+   "fieldtype": "Section Break",
+   "label": "Expense Details"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "expenses",
+   "fieldtype": "Table",
+   "label": "Expense Details",
+   "options": "Expense Entry item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Read Only",
+   "label": "Quantity",
+   "print_hide": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "additional_information_section",
+   "fieldtype": "Section Break",
+   "label": "Additional Information"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "in_preview": 1,
+   "label": "Remarks"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "approved_by",
+   "fieldtype": "Read Only",
+   "label": "Approved By"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "mode_of_payment",
+   "fieldtype": "Link",
+   "in_preview": 1,
+   "label": "Mode of Payment",
+   "options": "Mode of Payment",
+   "remember_last_selected_value": 1,
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.mode_of_payment != \"Cash\"",
+   "fieldname": "payment_reference",
+   "fieldtype": "Data",
+   "label": "Payment Reference ID",
+   "mandatory_depends_on": "eval:doc.mode_of_payment != \"Cash\""
+  },
+  {
+   "depends_on": "eval:doc.mode_of_payment != \"Cash\"",
+   "fieldname": "clearance_date",
+   "fieldtype": "Date",
+   "label": "Reference / Clearance Date",
+   "mandatory_depends_on": "eval:doc.mode_of_payment != \"Cash\""
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Status",
+   "options": "Pending\nApproved\nRejected"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Expense Entry",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "EXP-.DD.-.MM.-.YY.-.####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "EXP-.DD.-.MM.-.YY.-.####"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-02-12 14:09:28.843556",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Expense Entry",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1
+}

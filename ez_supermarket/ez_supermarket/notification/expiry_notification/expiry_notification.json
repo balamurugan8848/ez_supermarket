@@ -1,0 +1,29 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2023-12-28 17:56:24.074980",
+ "date_changed": "expiry_date",
+ "days_in_advance": 5,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Batch",
+ "enabled": 1,
+ "event": "Days Before",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Add your message here",
+ "modified": "2023-12-28 17:56:40.811562",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Expiry Notification",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "owner",
+   "receiver_by_role": "All"
+  }
+ ],
+ "send_system_notification": 1,
+ "send_to_all_assignees": 0,
+ "subject": "{{ doc.name }} is about to expire in 5 Days...!!!"
+}

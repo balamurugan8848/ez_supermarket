@@ -1,0 +1,138 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-01-31 15:45:04.629481",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "inventory_tab",
+  "inventory_dimension_section",
+  "create_inventory_location",
+  "dimension_name",
+  "reference_document",
+  "create_inventory_dimension",
+  "column_break_zltk",
+  "warehouse_keeper",
+  "toggle_features_tab",
+  "select_the_features_you_need_section",
+  "stall_refill_request",
+  "clients_request",
+  "purchase_master",
+  "expense_entry",
+  "stock_adjust"
+ ],
+ "fields": [
+  {
+   "fieldname": "inventory_tab",
+   "fieldtype": "Tab Break",
+   "label": "Inventory"
+  },
+  {
+   "default": "0",
+   "fieldname": "create_inventory_location",
+   "fieldtype": "Check",
+   "label": "Create Inventory Location"
+  },
+  {
+   "fieldname": "inventory_dimension_section",
+   "fieldtype": "Section Break",
+   "label": "Inventory Dimension"
+  },
+  {
+   "depends_on": "eval:doc.create_inventory_location === 1",
+   "fieldname": "dimension_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "mandatory_depends_on": "eval:doc.create_inventory_location === 1"
+  },
+  {
+   "depends_on": "eval:doc.create_inventory_location === 1",
+   "fieldname": "reference_document",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Reference Doctype",
+   "mandatory_depends_on": "eval:doc.create_inventory_location === 1",
+   "options": "DocType"
+  },
+  {
+   "depends_on": "eval:doc.dimension_name && doc.reference_document",
+   "fieldname": "create_inventory_dimension",
+   "fieldtype": "Button",
+   "label": "Create Inventory Dimension"
+  },
+  {
+   "fieldname": "column_break_zltk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "* Users In-charge of these warehouse will only be able to see the Items from that Warehouse in Stall Refill Request",
+   "fieldname": "warehouse_keeper",
+   "fieldtype": "Table",
+   "label": "Warehouse Keeper",
+   "options": "Warehouse Incharge"
+  },
+  {
+   "fieldname": "toggle_features_tab",
+   "fieldtype": "Tab Break",
+   "label": "Toggle Features"
+  },
+  {
+   "fieldname": "select_the_features_you_need_section",
+   "fieldtype": "Section Break",
+   "label": "Select The Features You Need"
+  },
+  {
+   "default": "0",
+   "fieldname": "stall_refill_request",
+   "fieldtype": "Check",
+   "label": "Stall Refill Request"
+  },
+  {
+   "default": "0",
+   "fieldname": "clients_request",
+   "fieldtype": "Check",
+   "label": "Clients Request"
+  },
+  {
+   "default": "0",
+   "fieldname": "stock_adjust",
+   "fieldtype": "Check",
+   "label": "Stock Adjust"
+  },
+  {
+   "default": "0",
+   "fieldname": "expense_entry",
+   "fieldtype": "Check",
+   "label": "Expense Entry"
+  },
+  {
+   "default": "0",
+   "fieldname": "purchase_master",
+   "fieldtype": "Check",
+   "label": "Purchase Master"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-03-08 14:09:10.755599",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Yb Supermarket Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

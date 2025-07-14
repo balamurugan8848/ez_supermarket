@@ -1,0 +1,102 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-12-21 14:57:26.192068",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_v4hj",
+  "item_code",
+  "item_name",
+  "uom",
+  "qty_sold",
+  "stall_location",
+  "store_location",
+  "max_qty",
+  "refill_qty",
+  "store_warehouse",
+  "stall_warehouse"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_v4hj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "qty_sold",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Qty Sold"
+  },
+  {
+   "fieldname": "max_qty",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Max Qty"
+  },
+  {
+   "fieldname": "refill_qty",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Refill Qty"
+  },
+  {
+   "fieldname": "stall_location",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Stall Location"
+  },
+  {
+   "fieldname": "store_location",
+   "fieldtype": "Data",
+   "label": "Store Location"
+  },
+  {
+   "fetch_from": "item_code.custom_default_store_warehouse",
+   "fieldname": "store_warehouse",
+   "fieldtype": "Link",
+   "label": "Store Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fetch_from": "item_code.stock_uom",
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "stall_warehouse",
+   "fieldtype": "Link",
+   "label": "Stall Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fetch_from": "item_code.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-04-10 15:12:28.618614",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Stall Request Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

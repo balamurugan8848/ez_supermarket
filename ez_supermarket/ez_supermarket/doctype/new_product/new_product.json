@@ -1,0 +1,280 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{item_name}-{item_code}",
+ "creation": "2023-12-16 10:56:58.812057",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "general_details_tab",
+  "section_break_cbtu",
+  "article_code",
+  "item_code",
+  "hsn_code",
+  "item_name",
+  "default_unit_of_measure",
+  "column_break_zylr",
+  "item_group",
+  "brand",
+  "net_weight",
+  "warehouse_and_location_section",
+  "default_purchase_warehouse",
+  "purchase_location",
+  "column_break_gxnq",
+  "default_sales_warehouse",
+  "sales_location",
+  "price_and_tax_tab",
+  "price_and_tax_section",
+  "purchase_price",
+  "selling_price",
+  "mrp",
+  "column_break_xflw",
+  "margin_",
+  "tax_rate",
+  "inventory_tab",
+  "inventory_details_section",
+  "minimum_quantity",
+  "shelf_life_in_days",
+  "apply_batch",
+  "let_system_assign_batch_number",
+  "custom_batch_number",
+  "column_break_ugzv",
+  "safety_stock",
+  "barcode",
+  "batch_id",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_cbtu",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "general_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "General Details"
+  },
+  {
+   "fieldname": "hsn_code",
+   "fieldtype": "Link",
+   "label": "HSN Code",
+   "options": "GST HSN Code"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "column_break_zylr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Brand"
+  },
+  {
+   "fieldname": "net_weight",
+   "fieldtype": "Data",
+   "label": "Net Weight"
+  },
+  {
+   "fieldname": "price_and_tax_tab",
+   "fieldtype": "Tab Break",
+   "label": "Price and Tax"
+  },
+  {
+   "fieldname": "price_and_tax_section",
+   "fieldtype": "Section Break",
+   "label": "Price and Tax"
+  },
+  {
+   "fieldname": "purchase_price",
+   "fieldtype": "Currency",
+   "label": "Purchase Price"
+  },
+  {
+   "fieldname": "selling_price",
+   "fieldtype": "Currency",
+   "label": "Selling Price"
+  },
+  {
+   "fieldname": "mrp",
+   "fieldtype": "Currency",
+   "label": "MRP"
+  },
+  {
+   "fieldname": "column_break_xflw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "margin_",
+   "fieldtype": "Percent",
+   "label": "Margin %"
+  },
+  {
+   "fieldname": "inventory_tab",
+   "fieldtype": "Tab Break",
+   "label": "Inventory"
+  },
+  {
+   "fieldname": "inventory_details_section",
+   "fieldtype": "Section Break",
+   "label": "Inventory Details"
+  },
+  {
+   "fieldname": "minimum_quantity",
+   "fieldtype": "Data",
+   "label": "Minimum Quantity"
+  },
+  {
+   "fieldname": "shelf_life_in_days",
+   "fieldtype": "Data",
+   "label": "Shelf Life in Days"
+  },
+  {
+   "default": "0",
+   "fieldname": "apply_batch",
+   "fieldtype": "Check",
+   "label": "Apply Batch"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.apply_batch === 1",
+   "fieldname": "let_system_assign_batch_number",
+   "fieldtype": "Check",
+   "label": "Let System Assign Batch Number",
+   "read_only_depends_on": "eval:doc.custom_batch_number === 1"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.apply_batch === 1",
+   "fieldname": "custom_batch_number",
+   "fieldtype": "Check",
+   "label": "Custom Batch Number",
+   "read_only_depends_on": "eval:doc.let_system_assign_batch_number === 1"
+  },
+  {
+   "fieldname": "column_break_ugzv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "safety_stock",
+   "fieldtype": "Data",
+   "label": "Safety Stock"
+  },
+  {
+   "fieldname": "barcode",
+   "fieldtype": "Data",
+   "label": "Barcode"
+  },
+  {
+   "depends_on": "eval:doc.custom_batch_number === 1",
+   "description": "Example: ABCD.#####. If series is set and Batch No is not mentioned in transactions, then automatic batch number will be created based on this series. If you always want to explicitly mention Batch No for this item, leave this blank. Note: this setting will take priority over the Naming Series Prefix in Stock Settings.",
+   "fieldname": "batch_id",
+   "fieldtype": "Data",
+   "label": "Batch ID"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Data",
+   "label": "Item Code",
+   "no_copy": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "New Product",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "warehouse_and_location_section",
+   "fieldtype": "Section Break",
+   "label": "Warehouse and Location"
+  },
+  {
+   "fieldname": "default_purchase_warehouse",
+   "fieldtype": "Link",
+   "label": "Default Purchase Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "purchase_location",
+   "fieldtype": "Data",
+   "label": "Purchase Location"
+  },
+  {
+   "fieldname": "column_break_gxnq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_sales_warehouse",
+   "fieldtype": "Link",
+   "label": "Default Sales Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "sales_location",
+   "fieldtype": "Data",
+   "label": "Sales Location"
+  },
+  {
+   "fieldname": "default_unit_of_measure",
+   "fieldtype": "Link",
+   "label": "Default Unit of Measure",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "tax_rate",
+   "fieldtype": "Select",
+   "label": "Tax Rate %",
+   "options": "\n5\n12\n18\n28"
+  },
+  {
+   "fieldname": "article_code",
+   "fieldtype": "Data",
+   "label": "Article Code"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-12-16 14:12:36.314585",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "New Product",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

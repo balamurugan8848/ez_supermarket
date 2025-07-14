@@ -1,0 +1,265 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-25 15:17:11.615055",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "barcode",
+  "section_break_2",
+  "s_warehouse",
+  "col_break1",
+  "t_warehouse",
+  "sec_break1",
+  "item_code",
+  "item_name",
+  "item_group",
+  "col_break2",
+  "quantity_section",
+  "qty",
+  "available_qty",
+  "actual_qty",
+  "column_break_20",
+  "uom",
+  "stock_uom",
+  "rates_section",
+  "last_purchase_rate",
+  "conversion_factor",
+  "additional_cost",
+  "valuation_rate",
+  "amount",
+  "batch_and_expiry_section",
+  "mfg_date",
+  "shelf_life_in_days",
+  "column_break_upmwz",
+  "batch_no",
+  "expiry_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "barcode",
+   "fieldtype": "Data",
+   "label": "Barcode"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "s_warehouse",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Source Warehouse",
+   "oldfieldname": "s_warehouse",
+   "oldfieldtype": "Link",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "col_break1",
+   "fieldtype": "Column Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "t_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Target Warehouse",
+   "oldfieldname": "t_warehouse",
+   "oldfieldtype": "Link",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "sec_break1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "bold": 1,
+   "columns": 3,
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Item",
+   "oldfieldname": "item_code",
+   "oldfieldtype": "Link",
+   "options": "Item",
+   "reqd": 1,
+   "search_index": 1,
+   "width": "100px"
+  },
+  {
+   "fetch_from": "item_code.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Item Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "item_code.item_group",
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "col_break2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "quantity_section",
+   "fieldtype": "Section Break",
+   "label": "Quantity"
+  },
+  {
+   "bold": 1,
+   "columns": 2,
+   "default": "1",
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty",
+   "oldfieldname": "qty",
+   "oldfieldtype": "Currency",
+   "precision": "4",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "bold": 1,
+   "columns": 1,
+   "fetch_from": "item_code.stock_uom",
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "UOM",
+   "oldfieldname": "uom",
+   "oldfieldtype": "Link",
+   "options": "UOM",
+   "reqd": 1,
+   "width": "100px"
+  },
+  {
+   "depends_on": "eval:doc.uom != doc.stock_uom",
+   "fieldname": "stock_uom",
+   "fieldtype": "Link",
+   "label": "Stock UOM",
+   "oldfieldname": "stock_uom",
+   "oldfieldtype": "Link",
+   "options": "UOM",
+   "print_hide": 1,
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "rates_section",
+   "fieldtype": "Section Break",
+   "label": "Rates"
+  },
+  {
+   "fieldname": "last_purchase_rate",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Last Purchase Rate"
+  },
+  {
+   "fieldname": "conversion_factor",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Conversion Factor"
+  },
+  {
+   "fieldname": "additional_cost",
+   "fieldtype": "Currency",
+   "label": "Additional Cost",
+   "options": "Company:company:default_currency",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "item_code.valuation_rate",
+   "fieldname": "valuation_rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Valuation Rate",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "columns": 2,
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "oldfieldname": "amount",
+   "oldfieldtype": "Currency",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch_and_expiry_section",
+   "fieldtype": "Section Break",
+   "label": "Batch and Expiry"
+  },
+  {
+   "fieldname": "mfg_date",
+   "fieldtype": "Date",
+   "label": "Manufacturing Date"
+  },
+  {
+   "fetch_from": "item_code.shelf_life_in_days",
+   "fieldname": "shelf_life_in_days",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Shelf Life in Days"
+  },
+  {
+   "fieldname": "column_break_upmwz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "batch_no",
+   "fieldtype": "Data",
+   "label": "Batch No",
+   "no_copy": 1,
+   "oldfieldname": "batch_no",
+   "oldfieldtype": "Link",
+   "options": "Batch"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Expiry Date"
+  },
+  {
+   "fieldname": "available_qty",
+   "fieldtype": "Data",
+   "label": "Available Qty"
+  },
+  {
+   "fieldname": "actual_qty",
+   "fieldtype": "Data",
+   "label": "Actual Qty"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-02-27 15:00:15.019480",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Stock Adjust Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

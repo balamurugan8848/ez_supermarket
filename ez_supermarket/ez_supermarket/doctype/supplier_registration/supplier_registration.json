@@ -1,0 +1,1303 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-07-01 15:12:05.700339",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "are_you_an_av_unit",
+  "av_unit_name",
+  "trust_name",
+  "name_of_vendor",
+  "gst_holder",
+  "gstin",
+  "pan",
+  "fssai_registration_number",
+  "document_to_support_the_same",
+  "certificate_of_incorporation",
+  "document_to_support",
+  "attach_your_pan",
+  "attach_fssai_reg_certificate",
+  "declaration_for_nongst",
+  "updload_signed",
+  "upload_declaration_form",
+  "column_break_2mxzh",
+  "address_line_1",
+  "address_line_2",
+  "city",
+  "state",
+  "country",
+  "locations",
+  "postal_code",
+  "contact_tab",
+  "contact_name",
+  "phone",
+  "email_id",
+  "column_break_kkyad",
+  "name_of_the_ceo",
+  "ceo_email_id",
+  "how_many_years_in_business",
+  "financial_stability_tab",
+  "avarage_last_3_year_turnover_in_inr_crore",
+  "revenue_growth_rate",
+  "profitability_net_profit_margin",
+  "profitability_gross_profit_margin",
+  "is_the_supplier_qualified",
+  "column_break_ttrm2",
+  "liquidity_ratio",
+  "debt_to_equity_ratio",
+  "creditworthiness",
+  "last_3_year_positive_net_worth",
+  "cacertificate_with_last_3_year_p_and_l_and_balance_sheet",
+  "unit_details_tab",
+  "which_all_units_you_want_to_register",
+  "ptdc",
+  "ptps",
+  "hers",
+  "solar_kitchen",
+  "food_link",
+  "column_break_atbl8",
+  "av_backery",
+  "av_backery_cafe",
+  "right_path_cafe",
+  "others",
+  "other_unit_name",
+  "category_tab",
+  "choose_your_category",
+  "cat",
+  "bakery_products",
+  "beef",
+  "beverages",
+  "breads",
+  "butter_",
+  "cakes_",
+  "canned_and_preserved_",
+  "canned_fruits_",
+  "canned_vegetables_",
+  "cereal_",
+  "cheese_",
+  "chewing_gum_",
+  "chicken_",
+  "chips_",
+  "chocolates_",
+  "coffee_",
+  "condiments_",
+  "confectionery_",
+  "cookies_",
+  "cooking_oils_",
+  "crab_",
+  "crackers_",
+  "cream_",
+  "dairy_products_",
+  "duck_",
+  "fish_",
+  "fresh_produce_",
+  "frozen_foods_",
+  "frozen_fruits_",
+  "frozen_pizzas_",
+  "frozen_vegetables_",
+  "fruits_",
+  "grains_and_cereals_",
+  "herbs_",
+  "ice_cream_",
+  "jams_",
+  "juices_",
+  "ketchup_",
+  "lamb_",
+  "column_break_jkfrs",
+  "lobster_",
+  "marinades_",
+  "mayonnaise_",
+  "meat_and_poultry_",
+  "milk_",
+  "mints_",
+  "muffins_",
+  "mushrooms_",
+  "mustard_",
+  "nuts_",
+  "oats_",
+  "oils_and_sauces_",
+  "pastas_",
+  "pastries",
+  "pepper",
+  "pickles",
+  "popcorn",
+  "pork",
+  "pretzels",
+  "rice",
+  "salad_dressings",
+  "salt",
+  "sauces",
+  "scallops",
+  "seafood",
+  "seasoning_blends",
+  "shrimp",
+  "snack_foods",
+  "soft_drinks",
+  "soups",
+  "soy_sauce",
+  "spices",
+  "spices_and_seasonings",
+  "tea",
+  "turkey",
+  "vegetables",
+  "water",
+  "wheat",
+  "yogurt",
+  "distribution_category_tab",
+  "vendor_category",
+  "farmers_and_growers",
+  "food_manufacturers",
+  "meat_and_seafood_suppliers",
+  "dairy_and_cheese_suppliers",
+  "bakery_suppliers",
+  "specialty_food_suppliers",
+  "organic_and_natural_food_suppliers",
+  "international_food_suppliers",
+  "beverage_suppliers",
+  "column_break_fzzvl",
+  "foodservice_equipment_suppliers",
+  "packaging_suppliers",
+  "cleaning_and_sanitation_suppliers",
+  "logistics_and_transportation_providers",
+  "technology_providers",
+  "distributors",
+  "wholesalers",
+  "retailers",
+  "any_other",
+  "please_specify",
+  "amended_from",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "\nCEBA-AV-.1.###\nCEBA-NAV-.2.###",
+   "read_only": 1
+  },
+  {
+   "fieldname": "are_you_an_av_unit",
+   "fieldtype": "Select",
+   "label": "Are you an AV Unit?",
+   "options": "\nYes\nNo",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.are_you_an_av_unit === 'Yes'",
+   "fieldname": "av_unit_name",
+   "fieldtype": "Data",
+   "label": "AV Unit Name",
+   "mandatory_depends_on": "eval:doc.are_you_an_av_unit === 'Yes'"
+  },
+  {
+   "depends_on": "eval:doc.are_you_an_av_unit === 'Yes'",
+   "fieldname": "trust_name",
+   "fieldtype": "Data",
+   "label": "Trust Name"
+  },
+  {
+   "depends_on": "eval:doc.are_you_an_av_unit === 'No'",
+   "fieldname": "name_of_vendor",
+   "fieldtype": "Data",
+   "label": "Name of Vendor"
+  },
+  {
+   "depends_on": "are_you_an_av_unit",
+   "fieldname": "gst_holder",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "GST holder",
+   "mandatory_depends_on": "are_you_an_av_unit",
+   "options": "\nYes\nNo"
+  },
+  {
+   "depends_on": "eval:doc.gst_holder == \"Yes\"",
+   "fieldname": "gstin",
+   "fieldtype": "Data",
+   "label": "GSTIN / UIN",
+   "mandatory_depends_on": "eval:doc.gst_holder == \"Yes\""
+  },
+  {
+   "depends_on": "eval:doc.gst_holder == \"Yes\"",
+   "fieldname": "pan",
+   "fieldtype": "Data",
+   "label": "PAN Number",
+   "mandatory_depends_on": "eval:doc.gst_holder == \"Yes\""
+  },
+  {
+   "depends_on": "eval:doc.gst_holder == \"Yes\"",
+   "fieldname": "fssai_registration_number",
+   "fieldtype": "Data",
+   "label": "FSSAI Registration Number",
+   "mandatory_depends_on": "eval:doc.gst_holder == \"Yes\""
+  },
+  {
+   "depends_on": "eval:doc.are_you_an_av_unit === 'Yes' && doc.gst_holder == \"Yes\"",
+   "fieldname": "document_to_support_the_same",
+   "fieldtype": "Attach",
+   "label": "Certificate from the Trust",
+   "mandatory_depends_on": "eval:doc.are_you_an_av_unit === 'Yes' && doc.gst_holder == \"Yes\""
+  },
+  {
+   "depends_on": "eval:doc.are_you_an_av_unit === 'No'&& doc.gst_holder == \"Yes\"",
+   "fieldname": "certificate_of_incorporation",
+   "fieldtype": "Attach",
+   "label": "Certificate of Incorporation",
+   "mandatory_depends_on": "eval:doc.are_you_an_av_unit === 'No'&& doc.gst_holder == \"Yes\"",
+   "options": "{'accept': 'application/pdf'}"
+  },
+  {
+   "depends_on": "eval:doc.are_you_an_av_unit === 'Yes' && doc.gst_holder == 'Yes'",
+   "fieldname": "document_to_support",
+   "fieldtype": "Attach",
+   "label": "Attach Your GSTCertificate"
+  },
+  {
+   "depends_on": "eval:doc.are_you_an_av_unit === 'No' && doc.gst_holder == \"Yes\"",
+   "fieldname": "attach_your_pan",
+   "fieldtype": "Attach",
+   "label": "Attach Your PAN"
+  },
+  {
+   "depends_on": "eval:doc.gst_holder == 'Yes'",
+   "fieldname": "attach_fssai_reg_certificate",
+   "fieldtype": "Attach",
+   "label": "Attach FSSAI REG. Certificate"
+  },
+  {
+   "depends_on": "eval:doc.gst_holder == \"No\"",
+   "fieldname": "declaration_for_nongst",
+   "fieldtype": "HTML",
+   "label": "Dec Form Download",
+   "options": "\n\n\n    <title>Download Declaration Form</title>\n\n\n    <p>Click the link below to download the Declaration Form:</p>\n    <a href=\"https://docs.google.com/document/d/1At_DRcw7nhyVjdu3THymu8xgdhczO4HA6oFpmmaZ3XE/edit\" target=\"_blank\">Download Declaration</a>\n\n\n"
+  },
+  {
+   "depends_on": "eval:doc.gst_holder == \"No\"",
+   "fieldname": "updload_signed",
+   "fieldtype": "HTML",
+   "options": "\n\n\n    <title>Upload Declaration Form</title>\n    <p>After signing the Declaration Form from the above link, kindly upload it below:</p>\n\n\n"
+  },
+  {
+   "depends_on": "eval:doc.gst_holder == \"No\"",
+   "fieldname": "upload_declaration_form",
+   "fieldtype": "Attach",
+   "label": "Upload Declaration Form",
+   "mandatory_depends_on": "eval:doc.gst_holder == \"No\""
+  },
+  {
+   "fieldname": "column_break_2mxzh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address_line_1",
+   "fieldtype": "Data",
+   "label": "Address Line 1"
+  },
+  {
+   "fieldname": "address_line_2",
+   "fieldtype": "Data",
+   "label": "Address Line 2"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Select",
+   "label": "State",
+   "options": "\nAndaman and Nicobar Islands\nAndhra Pradesh\nArunachal Pradesh\nAssam\nBihar\nChandigarh\nChhattisgarh\nDadra and Nagar Haveli and Daman and Diu\nDelhi\nGoa\nGujarat\nHaryana\nHimachal Pradesh\nJammu and Kashmir\nJharkhand\nKarnataka\nKerala\nLadakh\nLakshadweep Islands\nMadhya Pradesh\nMaharashtra\nManipur\nMeghalaya\nMizoram\nNagaland\nOdisha\nOther Territory\nPondicherry\nPunjab\nRajasthan\nSikkim\nTamil Nadu\nTelangana\nTripura\nUttar Pradesh\nUttarakhand\nWest Bengal"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country"
+  },
+  {
+   "fieldname": "locations",
+   "fieldtype": "Data",
+   "label": "Locations"
+  },
+  {
+   "fieldname": "postal_code",
+   "fieldtype": "Data",
+   "label": "Postal Code"
+  },
+  {
+   "fieldname": "contact_tab",
+   "fieldtype": "Tab Break",
+   "label": "Contact"
+  },
+  {
+   "fieldname": "contact_name",
+   "fieldtype": "Data",
+   "label": "Contact Name"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Phone",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID"
+  },
+  {
+   "fieldname": "column_break_kkyad",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "name_of_the_ceo",
+   "fieldtype": "Data",
+   "label": "Name of the Executive"
+  },
+  {
+   "fieldname": "ceo_email_id",
+   "fieldtype": "Data",
+   "label": "Executive Email ID"
+  },
+  {
+   "fieldname": "how_many_years_in_business",
+   "fieldtype": "Int",
+   "label": "How Many Years in Business?"
+  },
+  {
+   "fieldname": "financial_stability_tab",
+   "fieldtype": "Tab Break",
+   "label": "Financial Stability"
+  },
+  {
+   "fieldname": "avarage_last_3_year_turnover_in_inr_crore",
+   "fieldtype": "Data",
+   "label": "Avarage Last 3 year Turnover in (INR Crore)",
+   "reqd": 1
+  },
+  {
+   "description": "Minimum 5% per year",
+   "fieldname": "revenue_growth_rate",
+   "fieldtype": "Data",
+   "label": "Revenue Growth Rate",
+   "reqd": 1
+  },
+  {
+   "description": " Minimum 5%",
+   "fieldname": "profitability_net_profit_margin",
+   "fieldtype": "Data",
+   "label": "Profitability (Net Profit Margin)",
+   "reqd": 1
+  },
+  {
+   "description": "Minimum 20%",
+   "fieldname": "profitability_gross_profit_margin",
+   "fieldtype": "Data",
+   "label": "Profitability (Gross Profit Margin)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "is_the_supplier_qualified",
+   "fieldtype": "Select",
+   "label": "Is the Supplier Qualified",
+   "options": "Pending\nYes\nNo",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ttrm2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": " Minimum 1.2",
+   "fieldname": "liquidity_ratio",
+   "fieldtype": "Data",
+   "label": "Liquidity Ratio",
+   "reqd": 1
+  },
+  {
+   "description": "Maximum 3",
+   "fieldname": "debt_to_equity_ratio",
+   "fieldtype": "Data",
+   "label": "Debt to Equity Ratio",
+   "reqd": 1
+  },
+  {
+   "description": "Minimum credit score of 600",
+   "fieldname": "creditworthiness",
+   "fieldtype": "Data",
+   "label": "Credit Worthiness",
+   "reqd": 1
+  },
+  {
+   "description": "Should be Positive",
+   "fieldname": "last_3_year_positive_net_worth",
+   "fieldtype": "Data",
+   "label": "Last 3 year Positive Net Worth"
+  },
+  {
+   "fieldname": "cacertificate_with_last_3_year_p_and_l_and_balance_sheet",
+   "fieldtype": "Attach",
+   "label": "CA/Certificate with last 3 year P and L and Balance Sheet"
+  },
+  {
+   "fieldname": "unit_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Unit Details"
+  },
+  {
+   "fieldname": "which_all_units_you_want_to_register",
+   "fieldtype": "Heading",
+   "label": "Which unit do you want to register with?"
+  },
+  {
+   "default": "0",
+   "fieldname": "ptdc",
+   "fieldtype": "Check",
+   "label": "PTDC",
+   "read_only_depends_on": "eval:doc.ptps === 1 || doc.hers === 1 || doc.solar_kitchen === 1 || doc.food_link === 1 || doc.av_backery === 1 || doc.av_backery_cafe === 1 || doc.right_path_cafe === 1 || doc.others === 1"
+  },
+  {
+   "default": "0",
+   "fieldname": "ptps",
+   "fieldtype": "Check",
+   "label": "PTPS",
+   "read_only_depends_on": "eval:doc.ptdc === 1 || doc.hers === 1 || doc.solar_kitchen === 1 || doc.food_link === 1 || doc.av_backery === 1 || doc.av_backery_cafe === 1 || doc.right_path_cafe === 1 || doc.others === 1"
+  },
+  {
+   "default": "0",
+   "fieldname": "hers",
+   "fieldtype": "Check",
+   "label": "HERS",
+   "read_only_depends_on": "eval:doc.ptps === 1 || doc.ptdc === 1 || doc.solar_kitchen === 1 || doc.food_link === 1 || doc.av_backery === 1 || doc.av_backery_cafe === 1 || doc.right_path_cafe === 1 || doc.others === 1"
+  },
+  {
+   "default": "0",
+   "fieldname": "solar_kitchen",
+   "fieldtype": "Check",
+   "label": "SOLAR KITCHEN",
+   "read_only_depends_on": "eval:doc.ptps === 1 || doc.hers === 1 || doc.ptdc === 1 || doc.food_link === 1 || doc.av_backery === 1 || doc.av_backery_cafe === 1 || doc.right_path_cafe === 1 || doc.others === 1"
+  },
+  {
+   "default": "0",
+   "fieldname": "food_link",
+   "fieldtype": "Check",
+   "label": "FOOD LINK",
+   "read_only_depends_on": "eval:doc.ptps === 1 || doc.hers === 1 || doc.solar_kitchen === 1 || doc.ptdc === 1 || doc.av_backery === 1 || doc.av_backery_cafe === 1 || doc.right_path_cafe === 1 || doc.others === 1"
+  },
+  {
+   "fieldname": "column_break_atbl8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "av_backery",
+   "fieldtype": "Check",
+   "label": "AV BAKERY",
+   "read_only_depends_on": "eval:doc.ptps === 1 || doc.hers === 1 || doc.solar_kitchen === 1 || doc.food_link === 1 || doc.ptdc === 1 || doc.av_backery_cafe === 1 || doc.right_path_cafe === 1 || doc.others === 1"
+  },
+  {
+   "default": "0",
+   "fieldname": "av_backery_cafe",
+   "fieldtype": "Check",
+   "label": "AV BAKERY CAFE",
+   "read_only_depends_on": "eval:doc.ptps === 1 || doc.hers === 1 || doc.solar_kitchen === 1 || doc.food_link === 1 || doc.av_backery === 1 || doc.ptdc === 1 || doc.right_path_cafe === 1 || doc.others === 1"
+  },
+  {
+   "default": "0",
+   "fieldname": "right_path_cafe",
+   "fieldtype": "Check",
+   "label": "RIGHT PATH CAFE",
+   "read_only_depends_on": "eval:doc.ptps === 1 || doc.hers === 1 || doc.solar_kitchen === 1 || doc.food_link === 1 || doc.av_backery === 1 || doc.av_backery_cafe === 1 || doc.ptdc === 1 || doc.others === 1"
+  },
+  {
+   "default": "0",
+   "fieldname": "others",
+   "fieldtype": "Check",
+   "label": "Others",
+   "read_only_depends_on": "eval:doc.ptps === 1 || doc.hers === 1 || doc.solar_kitchen === 1 || doc.food_link === 1 || doc.av_backery === 1 || doc.av_backery_cafe === 1 || doc.right_path_cafe === 1 || doc.ptdc === 1"
+  },
+  {
+   "depends_on": "eval:doc.others === 1",
+   "fieldname": "other_unit_name",
+   "fieldtype": "Data",
+   "label": "Other Unit Name"
+  },
+  {
+   "fieldname": "category_tab",
+   "fieldtype": "Tab Break",
+   "label": "Category"
+  },
+  {
+   "fieldname": "choose_your_category",
+   "fieldtype": "Heading",
+   "label": "Choose Your Category"
+  },
+  {
+   "fieldname": "cat",
+   "fieldtype": "HTML",
+   "hidden": 1,
+   "label": "Choose Your Category",
+   "options": "<p>Choose Your Category</p>\n"
+  },
+  {
+   "default": "0",
+   "description": "Breads, cakes, pastries, cookies, muffins",
+   "fieldname": "bakery_products",
+   "fieldtype": "Check",
+   "label": "Bakery Products"
+  },
+  {
+   "default": "0",
+   "description": "Ground beef, steaks, roasts, beef cuts for stew",
+   "fieldname": "beef",
+   "fieldtype": "Check",
+   "label": "Beef"
+  },
+  {
+   "default": "0",
+   "description": "Soft drinks, juices, tea, coffee, water",
+   "fieldname": "beverages",
+   "fieldtype": "Check",
+   "label": "Beverages"
+  },
+  {
+   "default": "0",
+   "description": "White bread, whole wheat bread, baguettes, rolls",
+   "fieldname": "breads",
+   "fieldtype": "Check",
+   "label": "Breads"
+  },
+  {
+   "default": "0",
+   "description": "Salted butter, unsalted butter, clarified butter",
+   "fieldname": "butter_",
+   "fieldtype": "Check",
+   "label": "Butter"
+  },
+  {
+   "default": "0",
+   "description": "Chocolate cake, vanilla cake, birthday cakes",
+   "fieldname": "cakes_",
+   "fieldtype": "Check",
+   "label": "Cakes"
+  },
+  {
+   "default": "0",
+   "description": "Canned fruits, vegetables, soups, sauces, jams",
+   "fieldname": "canned_and_preserved_",
+   "fieldtype": "Check",
+   "label": "Canned and Preserved"
+  },
+  {
+   "default": "0",
+   "description": "Canned peaches, canned pineapples, canned pears",
+   "fieldname": "canned_fruits_",
+   "fieldtype": "Check",
+   "label": "Canned Fruits"
+  },
+  {
+   "default": "0",
+   "description": "Canned corn, canned green beans, canned tomatoes",
+   "fieldname": "canned_vegetables_",
+   "fieldtype": "Check",
+   "label": "Canned Vegetables"
+  },
+  {
+   "default": "0",
+   "description": "Corn flakes, bran flakes, granola, oatmeal",
+   "fieldname": "cereal_",
+   "fieldtype": "Check",
+   "label": "Cereal"
+  },
+  {
+   "default": "0",
+   "description": "Cheddar, mozzarella, feta, blue cheese, Swiss",
+   "fieldname": "cheese_",
+   "fieldtype": "Check",
+   "label": "Cheese"
+  },
+  {
+   "default": "0",
+   "description": "Spearmint gum, peppermint gum, fruit-flavored gum",
+   "fieldname": "chewing_gum_",
+   "fieldtype": "Check",
+   "label": "Chewing Gum"
+  },
+  {
+   "default": "0",
+   "description": "Chicken breasts, chicken thighs, whole chickens",
+   "fieldname": "chicken_",
+   "fieldtype": "Check",
+   "label": "Chicken"
+  },
+  {
+   "default": "0",
+   "description": "Potato chips, tortilla chips, corn chips",
+   "fieldname": "chips_",
+   "fieldtype": "Check",
+   "label": "Chips"
+  },
+  {
+   "default": "0",
+   "description": "Milk chocolate, dark chocolate, white chocolate",
+   "fieldname": "chocolates_",
+   "fieldtype": "Check",
+   "label": "Chocolates"
+  },
+  {
+   "default": "0",
+   "description": "Ground coffee, whole bean coffee, instant coffee",
+   "fieldname": "coffee_",
+   "fieldtype": "Check",
+   "label": "Coffee"
+  },
+  {
+   "default": "0",
+   "description": "Ketchup, mustard, mayonnaise, pickles",
+   "fieldname": "condiments_",
+   "fieldtype": "Check",
+   "label": "Condiments"
+  },
+  {
+   "default": "0",
+   "description": "Chocolates, candies, chewing gum, mints",
+   "fieldname": "confectionery_",
+   "fieldtype": "Check",
+   "label": "Confectionery"
+  },
+  {
+   "default": "0",
+   "description": "Chocolate chip cookies, oatmeal cookies, sugar cookies",
+   "fieldname": "cookies_",
+   "fieldtype": "Check",
+   "label": "Cookies"
+  },
+  {
+   "default": "0",
+   "description": "Olive oil, vegetable oil, coconut oil, canola oil",
+   "fieldname": "cooking_oils_",
+   "fieldtype": "Check",
+   "label": "Cooking Oils"
+  },
+  {
+   "default": "0",
+   "description": "Blue crab, king crab, snow crab, crab legs",
+   "fieldname": "crab_",
+   "fieldtype": "Check",
+   "label": "Crab"
+  },
+  {
+   "default": "0",
+   "description": "Saltine crackers, cheese crackers, whole grain crackers",
+   "fieldname": "crackers_",
+   "fieldtype": "Check",
+   "label": "Crackers"
+  },
+  {
+   "default": "0",
+   "description": "Heavy cream, sour cream, whipped cream",
+   "fieldname": "cream_",
+   "fieldtype": "Check",
+   "label": "Cream"
+  },
+  {
+   "default": "0",
+   "description": "Milk, cheese, butter, yogurt, cream",
+   "fieldname": "dairy_products_",
+   "fieldtype": "Check",
+   "label": "Dairy Products"
+  },
+  {
+   "default": "0",
+   "description": "Duck breasts, whole ducks, duck confit",
+   "fieldname": "duck_",
+   "fieldtype": "Check",
+   "label": "Duck"
+  },
+  {
+   "default": "0",
+   "description": "Salmon, tuna, cod, halibut, trout",
+   "fieldname": "fish_",
+   "fieldtype": "Check",
+   "label": "Fish"
+  },
+  {
+   "default": "0",
+   "description": "Fruits, vegetables, herbs, mushrooms",
+   "fieldname": "fresh_produce_",
+   "fieldtype": "Check",
+   "label": "Fresh Produce"
+  },
+  {
+   "default": "0",
+   "description": "Frozen vegetables, fruits, pizzas, ice cream",
+   "fieldname": "frozen_foods_",
+   "fieldtype": "Check",
+   "label": "Frozen Foods"
+  },
+  {
+   "default": "0",
+   "description": "Mixed berries, mango chunks, pineapple chunks",
+   "fieldname": "frozen_fruits_",
+   "fieldtype": "Check",
+   "label": "Frozen Fruits"
+  },
+  {
+   "default": "0",
+   "description": "Pepperoni pizza, margherita pizza, supreme pizza",
+   "fieldname": "frozen_pizzas_",
+   "fieldtype": "Check",
+   "label": "Frozen Pizzas"
+  },
+  {
+   "default": "0",
+   "description": "Mixed vegetables, broccoli, peas, corn",
+   "fieldname": "frozen_vegetables_",
+   "fieldtype": "Check",
+   "label": "Frozen Vegetables"
+  },
+  {
+   "default": "0",
+   "description": "Apples, oranges, bananas, berries, melons, tropical fruits",
+   "fieldname": "fruits_",
+   "fieldtype": "Check",
+   "label": "Fruits"
+  },
+  {
+   "default": "0",
+   "description": "Rice, wheat, oats, pasta, cereal",
+   "fieldname": "grains_and_cereals_",
+   "fieldtype": "Check",
+   "label": "Grains and Cereals"
+  },
+  {
+   "default": "0",
+   "description": "Basil, cilantro, parsley, rosemary, thyme, mint",
+   "fieldname": "herbs_",
+   "fieldtype": "Check",
+   "label": "Herbs"
+  },
+  {
+   "default": "0",
+   "description": "Vanilla ice cream, chocolate ice cream, strawberry ice cream",
+   "fieldname": "ice_cream_",
+   "fieldtype": "Check",
+   "label": "Ice Cream"
+  },
+  {
+   "default": "0",
+   "description": "Strawberry jam, raspberry jam, apricot jam",
+   "fieldname": "jams_",
+   "fieldtype": "Check",
+   "label": "Jams"
+  },
+  {
+   "default": "0",
+   "description": "Orange juice, apple juice, cranberry juice, grape juice",
+   "fieldname": "juices_",
+   "fieldtype": "Check",
+   "label": "Juices"
+  },
+  {
+   "default": "0",
+   "description": "Tomato ketchup, spicy ketchup, organic ketchup",
+   "fieldname": "ketchup_",
+   "fieldtype": "Check",
+   "label": "Ketchup"
+  },
+  {
+   "default": "0",
+   "description": "Lamb chops, leg of lamb, ground lamb",
+   "fieldname": "lamb_",
+   "fieldtype": "Check",
+   "label": "Lamb"
+  },
+  {
+   "fieldname": "column_break_jkfrs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Whole lobster, lobster tails, lobster meat",
+   "fieldname": "lobster_",
+   "fieldtype": "Check",
+   "label": "Lobster"
+  },
+  {
+   "default": "0",
+   "description": "Teriyaki marinade, barbecue marinade, lemon herb marinade",
+   "fieldname": "marinades_",
+   "fieldtype": "Check",
+   "label": "Marinades"
+  },
+  {
+   "default": "0",
+   "description": "Regular mayonnaise, light mayonnaise, vegan mayonnaise",
+   "fieldname": "mayonnaise_",
+   "fieldtype": "Check",
+   "label": "Mayonnaise"
+  },
+  {
+   "default": "0",
+   "description": "Beef, pork, chicken, turkey, lamb, duck",
+   "fieldname": "meat_and_poultry_",
+   "fieldtype": "Check",
+   "label": "Meat and Poultry"
+  },
+  {
+   "default": "0",
+   "description": "Cow's milk, almond milk, soy milk, oat milk",
+   "fieldname": "milk_",
+   "fieldtype": "Check",
+   "label": "Milk"
+  },
+  {
+   "default": "0",
+   "description": "Peppermint mints, breath fresheners, sugar-free mints",
+   "fieldname": "mints_",
+   "fieldtype": "Check",
+   "label": "Mints"
+  },
+  {
+   "default": "0",
+   "description": "Blueberry muffins, bran muffins, chocolate muffins",
+   "fieldname": "muffins_",
+   "fieldtype": "Check",
+   "label": "Muffins"
+  },
+  {
+   "default": "0",
+   "description": "Button mushrooms, shiitake mushrooms, oyster mushrooms",
+   "fieldname": "mushrooms_",
+   "fieldtype": "Check",
+   "label": "Mushrooms"
+  },
+  {
+   "default": "0",
+   "description": "Yellow mustard, Dijon mustard, honey mustard",
+   "fieldname": "mustard_",
+   "fieldtype": "Check",
+   "label": "Mustard"
+  },
+  {
+   "default": "0",
+   "description": "Almonds, peanuts, cashews, walnuts, pistachios",
+   "fieldname": "nuts_",
+   "fieldtype": "Check",
+   "label": "Nuts"
+  },
+  {
+   "default": "0",
+   "description": "Rolled oats, steel-cut oats, instant oats",
+   "fieldname": "oats_",
+   "fieldtype": "Check",
+   "label": "Oats"
+  },
+  {
+   "default": "0",
+   "description": "Cooking oils, salad dressings, soy sauce, marinades",
+   "fieldname": "oils_and_sauces_",
+   "fieldtype": "Check",
+   "label": "Oils and Sauces"
+  },
+  {
+   "default": "0",
+   "description": "Spaghetti, penne, fettuccine, macaroni",
+   "fieldname": "pastas_",
+   "fieldtype": "Check",
+   "label": "Pasta"
+  },
+  {
+   "default": "0",
+   "description": "Croissants, Danish pastries, cinnamon rolls",
+   "fieldname": "pastries",
+   "fieldtype": "Check",
+   "label": "Pastries"
+  },
+  {
+   "default": "0",
+   "description": "Black pepper, white pepper, crushed red pepper",
+   "fieldname": "pepper",
+   "fieldtype": "Check",
+   "label": "Pepper"
+  },
+  {
+   "default": "0",
+   "description": "Dill pickles, bread and butter pickles, sweet pickles",
+   "fieldname": "pickles",
+   "fieldtype": "Check",
+   "label": "Pickles"
+  },
+  {
+   "default": "0",
+   "description": "Buttered popcorn, caramel popcorn, cheese popcorn",
+   "fieldname": "popcorn",
+   "fieldtype": "Check",
+   "label": "Popcorn"
+  },
+  {
+   "default": "0",
+   "description": "Pork chops, bacon, ham, sausages, ribs",
+   "fieldname": "pork",
+   "fieldtype": "Check",
+   "label": "Pork"
+  },
+  {
+   "default": "0",
+   "description": "Soft pretzels, pretzel sticks, pretzel nuggets",
+   "fieldname": "pretzels",
+   "fieldtype": "Check",
+   "label": "Pretzels"
+  },
+  {
+   "default": "0",
+   "description": "White rice, brown rice, basmati rice, jasmine rice",
+   "fieldname": "rice",
+   "fieldtype": "Check",
+   "label": "Rice"
+  },
+  {
+   "default": "0",
+   "description": "Ranch dressing, Italian dressing, balsamic vinaigrette",
+   "fieldname": "salad_dressings",
+   "fieldtype": "Check",
+   "label": "Salad Dressings"
+  },
+  {
+   "default": "0",
+   "description": "Table salt, sea salt, kosher salt, Himalayan pink salt",
+   "fieldname": "salt",
+   "fieldtype": "Check",
+   "label": "Salt"
+  },
+  {
+   "default": "0",
+   "description": "Tomato sauce, pasta sauce, barbecue sauce",
+   "fieldname": "sauces",
+   "fieldtype": "Check",
+   "label": "Sauces"
+  },
+  {
+   "default": "0",
+   "description": "Fresh scallops, frozen scallops, sea scallops",
+   "fieldname": "scallops",
+   "fieldtype": "Check",
+   "label": "Scallops"
+  },
+  {
+   "default": "0",
+   "description": "Fish, shrimp, lobster, crab, scallops",
+   "fieldname": "seafood",
+   "fieldtype": "Check",
+   "label": "Seafood"
+  },
+  {
+   "default": "0",
+   "description": "Italian seasoning, Cajun seasoning, taco seasoning",
+   "fieldname": "seasoning_blends",
+   "fieldtype": "Check",
+   "label": "Seasoning Blends"
+  },
+  {
+   "default": "0",
+   "description": "Fresh shrimp, frozen shrimp, peeled shrimp",
+   "fieldname": "shrimp",
+   "fieldtype": "Check",
+   "label": "Shrimp"
+  },
+  {
+   "default": "0",
+   "description": "Chips, pretzels, nuts, popcorn, crackers",
+   "fieldname": "snack_foods",
+   "fieldtype": "Check",
+   "label": "Snack Foods"
+  },
+  {
+   "default": "0",
+   "description": "Cola, lemon-lime soda, ginger ale, root beer",
+   "fieldname": "soft_drinks",
+   "fieldtype": "Check",
+   "label": "Soft Drinks"
+  },
+  {
+   "default": "0",
+   "description": "Tomato soup, chicken noodle soup, vegetable soup",
+   "fieldname": "soups",
+   "fieldtype": "Check",
+   "label": "Soups"
+  },
+  {
+   "default": "0",
+   "description": "Regular soy sauce, low-sodium soy sauce, tamari sauce",
+   "fieldname": "soy_sauce",
+   "fieldtype": "Check",
+   "label": "Soy Sauce"
+  },
+  {
+   "default": "0",
+   "description": "Cumin, paprika, cinnamon, turmeric, chili powder",
+   "fieldname": "spices",
+   "fieldtype": "Check",
+   "label": "Spices"
+  },
+  {
+   "default": "0",
+   "description": "Salt, pepper, herbs, spices, seasoning blends",
+   "fieldname": "spices_and_seasonings",
+   "fieldtype": "Check",
+   "label": "Spices and Seasonings"
+  },
+  {
+   "default": "0",
+   "description": "Black tea, green tea, herbal tea, iced tea",
+   "fieldname": "tea",
+   "fieldtype": "Check",
+   "label": "Tea"
+  },
+  {
+   "default": "0",
+   "description": "Turkey breast, ground turkey, turkey legs",
+   "fieldname": "turkey",
+   "fieldtype": "Check",
+   "label": "Turkey"
+  },
+  {
+   "default": "0",
+   "description": "Leafy greens, tomatoes, carrots, peppers, onions, potatoes",
+   "fieldname": "vegetables",
+   "fieldtype": "Check",
+   "label": "Vegetables"
+  },
+  {
+   "default": "0",
+   "description": "Bottled water, sparkling water, flavored water",
+   "fieldname": "water",
+   "fieldtype": "Check",
+   "label": "Water"
+  },
+  {
+   "default": "0",
+   "description": "Whole wheat, wheat flour, wheat berries",
+   "fieldname": "wheat",
+   "fieldtype": "Check",
+   "label": "Wheat"
+  },
+  {
+   "default": "0",
+   "description": "Greek yogurt, flavored yogurt, probiotic yogurt",
+   "fieldname": "yogurt",
+   "fieldtype": "Check",
+   "label": "Yogurt"
+  },
+  {
+   "fieldname": "distribution_category_tab",
+   "fieldtype": "Tab Break",
+   "label": "Distribution Category"
+  },
+  {
+   "fieldname": "vendor_category",
+   "fieldtype": "Heading",
+   "label": "Vendor Category"
+  },
+  {
+   "default": "0",
+   "description": "Suppliers of fresh produce, fruits, vegetables, and herbs",
+   "fieldname": "farmers_and_growers",
+   "fieldtype": "Check",
+   "label": "Farmers and Growers"
+  },
+  {
+   "default": "0",
+   "description": "Producers of packaged food products, snacks, beverages",
+   "fieldname": "food_manufacturers",
+   "fieldtype": "Check",
+   "label": "Food Manufacturers"
+  },
+  {
+   "default": "0",
+   "description": "Providers of meat, poultry, seafood, and related products",
+   "fieldname": "meat_and_seafood_suppliers",
+   "fieldtype": "Check",
+   "label": "Meat and Seafood Suppliers"
+  },
+  {
+   "default": "0",
+   "description": "Suppliers of dairy products such as milk, cheese, yogurt",
+   "fieldname": "dairy_and_cheese_suppliers",
+   "fieldtype": "Check",
+   "label": "Dairy and Cheese Suppliers"
+  },
+  {
+   "default": "0",
+   "description": "Providers of baked goods, bread, pastries, cakes",
+   "fieldname": "bakery_suppliers",
+   "fieldtype": "Check",
+   "label": "Bakery Suppliers"
+  },
+  {
+   "default": "0",
+   "description": "Suppliers of specialty or gourmet food products",
+   "fieldname": "specialty_food_suppliers",
+   "fieldtype": "Check",
+   "label": "Specialty Food Suppliers"
+  },
+  {
+   "default": "0",
+   "description": "Suppliers of organic and natural food products",
+   "fieldname": "organic_and_natural_food_suppliers",
+   "fieldtype": "Check",
+   "label": "Organic and Natural Food Suppliers"
+  },
+  {
+   "default": "0",
+   "description": "Importers and distributors of international food products",
+   "fieldname": "international_food_suppliers",
+   "fieldtype": "Check",
+   "label": "International Food Suppliers"
+  },
+  {
+   "default": "0",
+   "description": "Suppliers of various beverages, including soft drinks, coffee",
+   "fieldname": "beverage_suppliers",
+   "fieldtype": "Check",
+   "label": "Beverage Suppliers"
+  },
+  {
+   "fieldname": "column_break_fzzvl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Providers of commercial kitchen equipment and supplies",
+   "fieldname": "foodservice_equipment_suppliers",
+   "fieldtype": "Check",
+   "label": "Foodservice Equipment Suppliers"
+  },
+  {
+   "default": "0",
+   "description": "Suppliers of food packaging materials and containers",
+   "fieldname": "packaging_suppliers",
+   "fieldtype": "Check",
+   "label": "Packaging Suppliers"
+  },
+  {
+   "default": "0",
+   "description": "Providers of cleaning products and hygiene items",
+   "fieldname": "cleaning_and_sanitation_suppliers",
+   "fieldtype": "Check",
+   "label": "Cleaning and Sanitation Suppliers"
+  },
+  {
+   "default": "0",
+   "description": "Providers of transportation and logistics services",
+   "fieldname": "logistics_and_transportation_providers",
+   "fieldtype": "Check",
+   "label": "Logistics and Transportation Providers"
+  },
+  {
+   "default": "0",
+   "description": "Suppliers of software solutions and technological tools",
+   "fieldname": "technology_providers",
+   "fieldtype": "Check",
+   "label": "Technology Providers"
+  },
+  {
+   "default": "0",
+   "description": "Companies that distribute food products to retailers and other businesses",
+   "fieldname": "distributors",
+   "fieldtype": "Check",
+   "label": "Distributors"
+  },
+  {
+   "default": "0",
+   "description": "Suppliers that sell food products in bulk to retailers and other businesses",
+   "fieldname": "wholesalers",
+   "fieldtype": "Check",
+   "label": "Wholesalers"
+  },
+  {
+   "default": "0",
+   "description": "Businesses that sell food products directly to consumers",
+   "fieldname": "retailers",
+   "fieldtype": "Check",
+   "label": "Retailers"
+  },
+  {
+   "default": "0",
+   "fieldname": "any_other",
+   "fieldtype": "Check",
+   "label": "Any Other"
+  },
+  {
+   "depends_on": "eval:doc.any_other == 1",
+   "fieldname": "please_specify",
+   "fieldtype": "Data",
+   "label": "Please Specify"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Supplier Registration",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Status",
+   "options": "Pending\nApproved\nRejected",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-01-23 17:43:21.378579",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Supplier Registration",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Blue",
+   "title": "Pending"
+  },
+  {
+   "color": "Green",
+   "title": "Approved"
+  },
+  {
+   "color": "Red",
+   "title": "Rejected"
+  }
+ ],
+ "track_changes": 1
+}

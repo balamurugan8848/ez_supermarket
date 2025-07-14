@@ -1,0 +1,30 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "condition": "doc.workflow_state == \"Order Sent to Supplier\"",
+ "creation": "2024-01-10 15:17:56.694793",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Procurement Master",
+ "enabled": 0,
+ "event": "Value Change",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Add your message here",
+ "modified": "2024-02-09 12:10:59.272789",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Purchase order to Supplier",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "condition": "doc.workflow_state == \"Order Sent to Supplier\"",
+   "receiver_by_document_field": "contact_email"
+  }
+ ],
+ "send_system_notification": 1,
+ "send_to_all_assignees": 0,
+ "subject": "Purchase Order {{ doc.name }} has been sent to the {{ doc.supplier }}..!",
+ "value_changed": "workflow_state"
+}

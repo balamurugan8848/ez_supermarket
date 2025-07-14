@@ -1,0 +1,207 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-10-25 15:18:47.261830",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "supplier_section",
+  "naming_series",
+  "reason",
+  "company",
+  "column_break_7",
+  "posting_date",
+  "posting_time",
+  "edit_posting_date_and_time",
+  "supplier",
+  "payment_made_to",
+  "section_break_or04d",
+  "scan_barcode",
+  "items",
+  "section_break_19",
+  "total_incoming_value",
+  "column_break_22",
+  "additional_costs_section",
+  "additional_costs",
+  "total_additional_costs",
+  "more_info",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "supplier_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "STK-AD-.DD./.MM./.YY.-.###",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "STK-AD-.DD./.MM./.YY.-.###",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Reason",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "read_only_depends_on": "eval:doc.edit_posting_date_and_time === 0"
+  },
+  {
+   "default": "Now",
+   "fieldname": "posting_time",
+   "fieldtype": "Time",
+   "label": "Posting Time",
+   "read_only": 1,
+   "read_only_depends_on": "eval:doc.edit_posting_date_and_time === 0"
+  },
+  {
+   "default": "0",
+   "fieldname": "edit_posting_date_and_time",
+   "fieldtype": "Check",
+   "label": "Edit Posting Time and Date"
+  },
+  {
+   "depends_on": "eval:doc.regular_supplier === 1 || doc.individual === 1",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "mandatory_depends_on": "eval:doc.regular_supplier === 1 || doc.individual === 1",
+   "options": "Supplier"
+  },
+  {
+   "depends_on": "eval:doc.individual === 1",
+   "fieldname": "payment_made_to",
+   "fieldtype": "Data",
+   "label": "Payment Made To",
+   "mandatory_depends_on": "eval:doc.individual === 1"
+  },
+  {
+   "fieldname": "section_break_or04d",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "scan_barcode",
+   "fieldtype": "Data",
+   "label": "Scan Barcode",
+   "options": "Barcode"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "oldfieldname": "mtn_details",
+   "oldfieldtype": "Table",
+   "options": "Stock Adjust Details",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_19",
+   "fieldtype": "Section Break",
+   "print_hide": 1
+  },
+  {
+   "fieldname": "total_incoming_value",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Total Incoming Value (Receipt)",
+   "options": "Company:company:default_currency",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "collapsible_depends_on": "total_additional_costs",
+   "fieldname": "additional_costs_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Additional Costs"
+  },
+  {
+   "fieldname": "additional_costs",
+   "fieldtype": "Table",
+   "label": "Additional Costs",
+   "options": "Landed Cost Taxes and Charges"
+  },
+  {
+   "fieldname": "total_additional_costs",
+   "fieldtype": "Currency",
+   "label": "Total Additional Costs",
+   "options": "Company:company:default_currency",
+   "print_hide_if_no_value": 1,
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "more_info",
+   "fieldtype": "Section Break",
+   "label": "More Information",
+   "oldfieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Adjust",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-02-27 14:56:04.300189",
+ "modified_by": "Administrator",
+ "module": "Ez-Supermarket",
+ "name": "Stock Adjust",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
