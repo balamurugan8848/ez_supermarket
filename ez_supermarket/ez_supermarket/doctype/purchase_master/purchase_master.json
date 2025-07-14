@@ -39,6 +39,8 @@
   "col_break_warehouse",
   "update_stock",
   "set_warehouse",
+  "supplier_item_insights_section",
+  "supplier_item_table",
   "items_section",
   "items",
   "section_break_26",
@@ -794,6 +796,17 @@
    "label": "Cash/Bank Account",
    "options": "Account",
    "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "supplier_item_insights_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier Item Insights"
+  },
+  {
+   "fieldname": "supplier_item_table",
+   "fieldtype": "HTML",
+   "label": "Supplier Item Table"
   }
  ],
  "hide_toolbar": 1,
@@ -805,7 +818,7 @@
    "link_fieldname": "custom_reference_document"
   }
  ],
- "modified": "2024-03-08 14:01:36.950629",
+ "modified": "2025-07-14 16:24:06.163860",
  "modified_by": "Administrator",
  "module": "Ez-Supermarket",
  "name": "Purchase Master",
@@ -860,6 +873,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "posting_date, supplier,base_grand_total, outstanding_amount",
  "show_name_in_global_search": 1,
  "sort_field": "modified",

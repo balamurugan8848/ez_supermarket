@@ -123,7 +123,7 @@ frappe.ui.form.on("Stall Refill Request", {
               d.max_qty = r.message[i].max_qty;
               d.store_warehouse = r.message[i].store_warehouse;
               d.stall_warehouse = r.message[i].stall_warehouse;
-              d.refill_qty = r.message[i].max_qty - r.message[i].qty_sold;
+              d.refill_qty = d.qty_sold;
             }
             frm.refresh_field("stall_request_details");
           }

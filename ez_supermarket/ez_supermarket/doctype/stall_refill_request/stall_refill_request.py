@@ -12,40 +12,34 @@ class StallRefillRequest(Document):
 
 @frappe.whitelist()
 def set_timestamps(doc_str):
-    # Convert doc string to dict
+    # Parse the input JSON string into a dict
     doc = frappe.parse_json(doc_str)
-
     now = frappe.utils.now_datetime()
 
-    existing_doc = frappe.get_value(
+    # Check for the most recent submitted doc (docstatus = 1)
+    existing_doc = frappe.get_all(
         "Stall Refill Request",
-        {
-            # "posting_date": doc.posting_date,
+        filters={
             "docstatus": 1,
         },
-        ["name", "timestamp"],
-        as_dict=True
+        fields=["name", "timestamp"],
+        order_by="creation desc",
+        limit=1,
+        as_list=False
     )
 
     if existing_doc:
-        # Create a new document with updated timestamps
-        updated_doc = frappe.get_doc({
-            "doctype": "Stall Refill Request",
-            "name": existing_doc.name,
-            "timestamp": now,
-            "last_fetch_timestamp": existing_doc.timestamp
-        })
-
+        # If previous doc exists: use its timestamp as the new doc's last_fetch_timestamp
+        updated_doc = frappe.get_doc(doc)
+        updated_doc.last_fetch_timestamp = existing_doc[0].timestamp
+        updated_doc.timestamp = now
         return updated_doc
-    # else:
-    #     doc = frappe.get_doc(doc)
-    #     doc.timestamp = now
-    #     doc.last_fetch_timestamp = f"{doc.posting_date} 00:00:00"
-
-    #    return doc
-
-
-
+    else:
+        # First doc: set last_fetch_timestamp as posting_date + 00:00:00
+        updated_doc = frappe.get_doc(doc)
+        updated_doc.timestamp = now
+        updated_doc.last_fetch_timestamp = f"{updated_doc.posting_date} 00:00:00"
+        return updated_doc
 
 @frappe.whitelist()
 def fetch_items_sold(timestamp, last_fetch_ts=None):

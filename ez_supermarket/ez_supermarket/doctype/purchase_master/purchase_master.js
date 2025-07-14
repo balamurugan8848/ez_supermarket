@@ -38,154 +38,85 @@ cur_frm.fields_dict["items"].grid.get_field("item_code").get_query = function (
 
 frappe.ui.form.on("Purchase Master", {
   refresh: function (frm) {
-    // Check the value of the Client Request checkbox
-    frappe.model.with_doc(
-      "Yb Supermarket Settings",
-      "Yb Supermarket Settings",
-      function () {
-        var settings_doc = frappe.get_doc(
-          "Yb Supermarket Settings",
-          "Yb Supermarket Settings"
-        );
-        if (settings_doc.purchase_master == 0) {
-          // If Client Request is not checked, hide the form and throw an error
-          $.each(frm.fields_dict, function (fieldname, field) {
-            field.df.hidden = 1;
-          });
-          frm.refresh_fields();
-          // Disable the Save button
-          frm.disable_save();
-          var settings_link = frappe.utils.get_form_link(
-            "Yb Supermarket Settings",
-            settings_doc.name
-          );
-          frappe.throw(
-            "You must enable <strong>Purchase Master</strong> feature in <a href='" +
-              settings_link +
-              "'><strong>Yb Supermarket Settings</a></strong> to access this page."
-          );
-        }
+    // Settings check: hides form if disabled
+    frappe.model.with_doc("Yb Supermarket Settings", "Yb Supermarket Settings", function () {
+      var settings_doc = frappe.get_doc("Yb Supermarket Settings", "Yb Supermarket Settings");
+      if (settings_doc.purchase_master == 0) {
+        $.each(frm.fields_dict, function (fieldname, field) {
+          field.df.hidden = 1;
+        });
+        frm.refresh_fields();
+        frm.disable_save();
+        var settings_link = frappe.utils.get_form_link("Yb Supermarket Settings", settings_doc.name);
+        frappe.throw("You must enable <strong>Purchase Master</strong> feature in <a href='" + settings_link + "'><strong>Yb Supermarket Settings</a></strong> to access this page.");
       }
-    );
-    frm.fields_dict.items.grid.add_custom_button(
-      __("Fetch Supplier Items"),
-      function () {
-        fetchSupplierItems(frm);
-      }
-    );
+    });
+
+    // Fetch Supplier Items button
+    frm.fields_dict.items.grid.add_custom_button(__("Fetch Supplier Items"), function () {
+      fetchSupplierItems(frm);
+    });
+
+    // Calculate Purchase Qty button
     frm.add_custom_button("Calculate Purchase Qty", function () {
-      // Create a new dialog
-      var d = new frappe.ui.Dialog({
+      const itemData = frm.doc.items.map((item) => ({
+        item_code: item.item_code,
+        qty: item.qty,
+        pur_qty: 0,
+        suggested_qty: 0
+      }));
+
+      const dialog = new frappe.ui.Dialog({
         title: "Enter details",
         fields: [
           {
             label: "Number of Months",
             fieldname: "months",
             fieldtype: "Int",
-            reqd: 1,
-            change: function () {
-              // Perform action when the number of months changes
-              var numberOfMonths = this.value;
-              // Calculate total purchase quantity for each item
-              var items = frm.doc.items;
-              for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                var totalPurchaseQty = calculateTotalPurchaseQty(
-                  item.item_code,
-                  numberOfMonths
-                );
-                // Update the pur_qty field for the item
-                d.fields_dict.items.df.data[i].pur_qty = totalPurchaseQty;
-              }
-              d.refresh_field("items");
-            },
+            reqd: 1
           },
-
           {
             label: "Items",
             fieldname: "items",
             fieldtype: "Table",
             fields: [
-              {
-                label: "Item Code",
-                fieldname: "item_code",
-                fieldtype: "Data",
-                read_only: 1,
-                in_list_view: 1,
-              },
-              {
-                label: "Qty",
-                fieldname: "qty",
-                fieldtype: "Float",
-                read_only: 1,
-                in_list_view: 1,
-              },
-              {
-                label: "Total Purchase Qty",
-                fieldname: "pur_qty",
-                fieldtype: "Float",
-                read_only: 1,
-                in_list_view: 1,
-              },
-              {
-                label: "Suggested Qty",
-                fieldname: "suggested_qty",
-                fieldtype: "Float",
-                read_only: 1,
-                in_list_view: 1,
-              },
+              { label: "Item Code", fieldname: "item_code", fieldtype: "Data", read_only: 1, in_list_view: 1 },
+              { label: "Qty", fieldname: "qty", fieldtype: "Float", read_only: 1, in_list_view: 1 },
+              { label: "Total Purchase Qty", fieldname: "pur_qty", fieldtype: "Float", read_only: 1, in_list_view: 1 },
+              { label: "Suggested Qty", fieldname: "suggested_qty", fieldtype: "Float", read_only: 1, in_list_view: 1 }
             ],
             in_place_edit: true,
-            data: frm.doc.items.map((item) => ({
-              item_code: item.item_code,
-              qty: item.qty,
-              pur_qty: 0, // Initialize pur_qty to 0
-              suggested_qty: 0,
-            })),
-          },
+            data: itemData
+          }
         ],
         primary_action_label: "Calculate",
-        primary_action: function () {},
+        primary_action(values) {
+          const months = values.months;
+          const rows = dialog.fields_dict.items.df.data;
+
+          // Loop through each item and fetch server data
+          rows.forEach((row, index) => {
+            frappe.call({
+              method: "ez_supermarket.ez_supermarket.doctype.purchase_master.purchase_master.get_total_purchase_qty",
+              args: {
+                item_code: row.item_code,
+                number_of_months: months
+              },
+              callback: function (r) {
+                if (r.message) {
+                  row.pur_qty = r.message.total_qty;
+                  row.suggested_qty = Math.ceil(r.message.total_qty / months);
+                  dialog.fields_dict.items.refresh();
+                }
+              }
+            });
+          });
+        }
       });
 
-      d.show();
+      dialog.show();
     });
   },
-  //   frm.add_custom_button("Calculate Purchase Qty", function () {
-  //     const months = prompt("Based on how many months?");
-  //     if (months !== null && !isNaN(months)) {
-  //       frappe.call({
-  //         method:
-  //           "ez_supermarket.ez_supermarket.doctype.purchase_master.purchase_master.calculate_purchase_quantity",
-  //         doc: frm.doc,
-  //         args: { months: parseInt(months) },
-  //         callback: function (r) {
-  //           const data = r.message;
-  //           frm.clear_table("items");
-  //           data.forEach((item) => {
-  //             const child = frm.add_child("items");
-  //             frappe.model.set_value(
-  //               child.doctype,
-  //               child.name,
-  //               "item_code",
-  //               item.item_code
-  //             );
-  //             frappe.model.set_value(
-  //               child.doctype,
-  //               child.name,
-  //               "qty",
-  //               item.suggested_qty
-  //             );
-  //           });
-  //           frm.refresh_field("items");
-  //           frappe.msgprint(
-  //             __("Suggested purchase quantities have been calculated.")
-  //           );
-  //         },
-  //       });
-  //     }
-  //   });
-  // },
 
   mode_of_payment: function (frm) {
     // Call the server-side function to get the Cash or Bank account
@@ -264,60 +195,86 @@ function calculateTotalPurchaseQty(item_code, numberOfMonths) {
   });
 }
 function fetchSupplierItems(frm) {
-  // Get supplier
   var supplier = frm.doc.supplier;
   frappe.call({
     method:
       "ez_supermarket.ez_supermarket.custom.purchase_order.purchase_order.fetch_supplier_items",
     args: {
-      supplier: supplier,
+      supplier: frm.doc.supplier,
     },
     callback: function (r) {
-      // console.log("Response from server:", r);
-
       if (r.message && r.message.length > 0) {
-        // Clear existing rows
         frm.doc.items = [];
 
-        // Add fetched items
-        $.each(r.message, function (i, item) {
-          // console.log("Processing item:", item);
+        // HTML table init
+        let html = `
+          <div style="overflow-x:auto; max-height:400px; overflow-y:auto;">
+            <table class="table table-bordered table-sm table-hover table-striped text-nowrap">
+              <thead class="bg-light" style="position:sticky;top:0;z-index:1;">
+                <tr class="text-center align-middle">
+                  <th rowspan="2">Item Code</th>
+                  <th colspan="2">Stock Qty</th>
+                  <th colspan="2">Item Info</th>
+                  <th colspan="3">Sales</th>
+                  <th colspan="3">Purchases</th>
+                  <th colspan="2">Avg (3M)</th>
+                </tr>
+                <tr class="text-center align-middle">
+                  <th>Stall</th>
+                  <th>Store</th>
+                  <th>MRP</th>
+                  <th>Tax %</th>
+                  <th>CM</th><th>LM</th><th>PLM</th>
+                  <th>CM</th><th>LM</th><th>PLM</th>
+                  <th>Sales</th><th>Purchase</th>
+                </tr>
+              </thead>
+              <tbody>`;
 
+        $.each(r.message, function (i, item) {
           var child = frm.add_child("items");
           child.item_code = item.item_code;
           frm.script_manager.trigger("item_code", child.doctype, child.name);
+
           child.custom_available_qty = item.custom_available_qty;
           child.custom_last_month_sales = item.custom_last_month_sales;
+          child.custom_previous_last_month_sales = item.custom_previous_last_month_sales;
+          child.custom_current_month_sales_2 = item.custom_current_month_sales_2;
           child.custom_tax = item.custom_tax;
           child.custom_mrp = item.custom_mrp;
-          child.custom_previous_last_month_sales =
-            item.custom_previous_last_month_sales;
-          child.custom_current_month_sales_2 =
-            item.custom_current_month_sales_2;
-          child.custom_current_month_purchase =
-            item.custom_current_month_purchase;
           child.custom_last_month_purchase = item.custom_last_month_purchase;
-          child.custom_previous_last_month_purchase =
-            item.custom_previous_last_month_purchase;
-          child.custom_average_sales_last_3_months =
-            (item.custom_last_month_sales +
-              item.custom_previous_last_month_sales +
-              item.custom_current_month_sales_2) /
-            3;
-          child.custom_average_purchase_last_3_months =
-            (item.custom_current_month_purchase +
-              item.custom_last_month_purchase +
-              item.custom_previous_last_month_purchase) /
-            3;
-          // Calculate and set custom_forecasted_sales and custom_forecasted_purchase using exponential smoothing
+          child.custom_previous_last_month_purchase = item.custom_previous_last_month_purchase;
+          child.custom_current_month_purchase = item.custom_current_month_purchase;
+
+          // Skip average calculations that use raw numbers — use what you already had working
+
+          html += `<tr>
+            <td>${item.item_code}</td>
+            <td>${item.custom_available_qty?.split(" / ")[0] ?? "-"}</td>
+            <td>${item.custom_available_qty?.split(" / ")[1] ?? "-"}</td>
+            <td>${item.custom_mrp ?? "-"}</td>
+            <td>${item.custom_tax ?? "-"}</td>
+            <td>${item.custom_current_month_sales_2 ?? "-"}</td>
+            <td>${item.custom_last_month_sales ?? "-"}</td>
+            <td>${item.custom_previous_last_month_sales ?? "-"}</td>
+            <td>${item.custom_current_month_purchase ?? "-"}</td>
+            <td>${item.custom_last_month_purchase ?? "-"}</td>
+            <td>${item.custom_previous_last_month_purchase ?? "-"}</td>
+            <td><span class="badge badge-primary">${child.custom_average_sales_last_3_months?.toFixed(2) ?? "0.00"}</span></td>
+            <td><span class="badge badge-success">${child.custom_average_purchase_last_3_months?.toFixed(2) ?? "0.00"}</span></td>
+          </tr>`;
         });
 
-        // frm.refresh_field("buying_price_list");
+        html += "</tbody></table></div>";
+
         frm.refresh_field("items");
+        frm.fields_dict.supplier_item_table.$wrapper.html(html);
       } else {
         frappe.msgprint("No items found for supplier.");
+        frm.fields_dict.supplier_item_table.$wrapper.html("<p>No data available.</p>");
       }
     },
   });
 }
+
 function purchaseqtycal(frm) {}
