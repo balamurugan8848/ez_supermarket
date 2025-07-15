@@ -5,41 +5,48 @@ import frappe
 import json
 from frappe.model.document import Document
 from frappe import _
-from frappe.utils import nowdate, get_time, get_datetime, today
+from frappe.utils import nowdate, get_time, get_datetime, today, now_datetime, getdate
+from datetime import datetime, time
 
 class StallRefillRequest(Document):
 	pass
 
 @frappe.whitelist()
-def set_timestamps(doc_str):
-    # Parse the input JSON string into a dict
-    doc = frappe.parse_json(doc_str)
-    now = frappe.utils.now_datetime()
+def set_timestamps(doc_str):   
 
-    # Check for the most recent submitted doc (docstatus = 1)
+    doc = frappe.parse_json(doc_str)
+    now = now_datetime()
+    updated_doc = frappe.get_doc(doc)
+
+    # Convert posting_date to a datetime.date object
+    posting_date = getdate(updated_doc.posting_date)
+
+    # Check if a submitted document exists for same posting_date
     existing_doc = frappe.get_all(
         "Stall Refill Request",
         filters={
             "docstatus": 1,
+            "posting_date": posting_date
         },
         fields=["name", "timestamp"],
         order_by="creation desc",
-        limit=1,
-        as_list=False
+        limit=1
     )
 
     if existing_doc:
-        # If previous doc exists: use its timestamp as the new doc's last_fetch_timestamp
-        updated_doc = frappe.get_doc(doc)
-        updated_doc.last_fetch_timestamp = existing_doc[0].timestamp
-        updated_doc.timestamp = now
-        return updated_doc
+        updated_doc.last_fetch_timestamp = existing_doc[0].get("timestamp")
     else:
-        # First doc: set last_fetch_timestamp as posting_date + 00:00:00
-        updated_doc = frappe.get_doc(doc)
-        updated_doc.timestamp = now
-        updated_doc.last_fetch_timestamp = f"{updated_doc.posting_date} 00:00:00"
-        return updated_doc
+        # Use posting_date 00:00:00 for first document
+        updated_doc.last_fetch_timestamp = datetime.combine(posting_date, time.min)
+
+    # Always update the current timestamp
+    updated_doc.timestamp = now
+
+    return updated_doc
+
+
+
+
 
 @frappe.whitelist()
 def fetch_items_sold(timestamp, last_fetch_ts=None):
