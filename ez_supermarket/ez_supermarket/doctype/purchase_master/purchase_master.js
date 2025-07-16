@@ -1,9 +1,5 @@
-// Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
-// License: GNU General Public License v3. See license.txt
-
 frappe.provide("erpnext.accounts");
 
-// erpnext.accounts.payment_triggers.setup("Purchase Master");
 erpnext.accounts.taxes.setup_tax_filters("Purchase Taxes and Charges");
 erpnext.accounts.taxes.setup_tax_validations("Purchase Master");
 erpnext.buying.setup_buying_controller();
@@ -11,11 +7,6 @@ erpnext.buying.setup_buying_controller();
 erpnext.accounts.PurchaseInvoice = class PurchaseInvoice extends (
   erpnext.buying.BuyingController
 ) {
-  // setup(doc) {
-  //   this.setup_posting_date_time_check();
-  //   super.setup(doc);
-  // }
-
   onload() {
     if (this.frm.doc.supplier && this.frm.doc.__islocal) {
       this.frm.trigger("supplier");
@@ -94,8 +85,7 @@ frappe.ui.form.on("Purchase Master", {
           const months = values.months;
           const rows = dialog.fields_dict.items.df.data;
 
-          // Loop through each item and fetch server data
-          rows.forEach((row, index) => {
+          rows.forEach((row) => {
             frappe.call({
               method: "ez_supermarket.ez_supermarket.doctype.purchase_master.purchase_master.get_total_purchase_qty",
               args: {
@@ -116,30 +106,39 @@ frappe.ui.form.on("Purchase Master", {
 
       dialog.show();
     });
+
+    // Re-render supplier HTML table on refresh
+    if (frm.doc.supplier_item_data_json) {
+      try {
+        const parsed_data = JSON.parse(frm.doc.supplier_item_data_json);
+        render_supplier_table(frm, parsed_data);
+      } catch (e) {
+        console.warn("Invalid JSON in supplier_item_data_json");
+      }
+    }
   },
 
   mode_of_payment: function (frm) {
-    // Call the server-side function to get the Cash or Bank account
     frappe.call({
-      method:
-        "ez_supermarket.ez_supermarket.doctype.purchase_master.purchase_master.get_bank_cash_account",
+      method: "ez_supermarket.ez_supermarket.doctype.purchase_master.purchase_master.get_bank_cash_account",
       args: {
         mode_of_payment: frm.doc.mode_of_payment,
         company: frm.doc.company,
       },
       callback: function (response) {
-        // Set the Cash or Bank Account field with the fetched account
         if (response.message && response.message.account) {
           frm.set_value("cashbank_account", response.message.account);
         }
       },
     });
   },
+
   tax_category: function (frm) {
     if (frm.doc.tax_category) {
       frm.events.set_taxes_and_charges(frm);
     }
   },
+
   set_taxes_and_charges: function (frm) {
     if (frm.doc.tax_category) {
       frappe.call({
@@ -154,46 +153,19 @@ frappe.ui.form.on("Purchase Master", {
         },
         callback: function (response) {
           if (response && response.message && response.message.length > 0) {
-            // Set taxes and charges based on the retrieved tax template
             frm.set_value("taxes_and_charges", response.message[0].name);
           } else {
-            // Handle case where no matching tax template is found
             frm.set_value("taxes_and_charges", "");
-            frappe.msgprint(
-              "No matching tax template found for the selected tax category."
-            );
+            frappe.msgprint("No matching tax template found for the selected tax category.");
           }
           refresh_field("taxes_and_charges");
         },
       });
     }
-  },
+  }
 });
-function calculateTotalPurchaseQty(item_code, numberOfMonths) {
-  frappe.call({
-    method:
-      "ez_supermarket.ez_supermarket.doctype.purchase_master.purchase_master.get_total_purchase_qty",
-    args: {
-      item_code: item_code,
-      number_of_months: numberOfMonths,
-    },
-    callback: function (r) {
-      if (r.message) {
-        var totalQty = r.message.total_qty;
-        var suggestedQty = totalQty / numberOfMonths;
 
-        // Update the pur_qty and suggested_qty fields
-        var itemIndex = frm.doc.items.findIndex(
-          (item) => item.item_code === item_code
-        );
-        if (itemIndex !== -1) {
-          d.fields_dict.items.df.data[itemIndex].pur_qty = totalQty;
-          d.fields_dict.items.df.data[itemIndex].suggested_qty = suggestedQty;
-        }
-      }
-    },
-  });
-}
+// Fetch supplier items and store data for reuse
 function fetchSupplierItems(frm) {
   const supplier = frm.doc.supplier;
 
@@ -204,90 +176,86 @@ function fetchSupplierItems(frm) {
       if (!r.message || r.message.length === 0) {
         frappe.msgprint("No items found for supplier.");
         frm.fields_dict.supplier_item_table.$wrapper.html("<p>No data available.</p>");
+        frm.set_value("supplier_item_data_json", ""); // Clear stored JSON
         return;
       }
 
+      // Save data for later re-render
+      frm.set_value("supplier_item_data_json", JSON.stringify(r.message));
+
+      // Render table
+      render_supplier_table(frm, r.message);
+
+      // Optionally populate child table
       frm.doc.items = [];
-
-      // Extract quantity from "qty UOM / Rs rate"
-      function parseQty(text) {
-        if (!text || typeof text !== "string") return 0;
-        const match = text.trim().match(/^([\d.]+)/);
-        return match ? parseFloat(match[1]) : 0;
-      }
-
-      let html = `
-        <div style="overflow-x:auto; max-height:400px; overflow-y:auto;">
-          <table class="table table-bordered table-sm table-hover table-striped text-nowrap">
-            <thead class="bg-light sticky-top">
-              <tr class="text-center align-middle" style="background:#e9ecef;">
-                <th rowspan="2">Item Code</th>
-                <th colspan="2" style="background:#f7fafc;">Stock Qty</th>
-                <th colspan="2" style="background:#f8f9fa;">Item Info</th>
-                <th colspan="3" style="background:#e2f0d9;">Sales</th>
-                <th colspan="3" style="background:#fde9ea;">Purchases</th>
-                <th colspan="2" style="background:#fef9ec;">Avg (3M)</th>
-              </tr>
-              <tr class="text-center align-middle small text-muted">
-                <th>Stall</th><th>Store</th>
-                <th>MRP</th><th>Tax %</th>
-                <th>CM</th><th>LM</th><th>PLM</th>
-                <th>CM</th><th>LM</th><th>PLM</th>
-                <th>Sales</th><th>Purchase</th>
-              </tr>
-            </thead>
-            <tbody>`;
-
-      $.each(r.message, function (i, item) {
-        const s1 = parseQty(item.custom_current_month_sales_2);
-        const s2 = parseQty(item.custom_last_month_sales);
-        const s3 = parseQty(item.custom_previous_last_month_sales);
-        const p1 = parseQty(item.custom_current_month_purchase);
-        const p2 = parseQty(item.custom_last_month_purchase);
-        const p3 = parseQty(item.custom_previous_last_month_purchase);
-
-        const avg_sales = (s1 + s2 + s3) / 3;
-        const avg_purchase = (p1 + p2 + p3) / 3;
-
+      r.message.forEach((item) => {
         const child = frm.add_child("items");
         child.item_code = item.item_code;
         frm.script_manager.trigger("item_code", child.doctype, child.name);
-
-        Object.assign(child, {
-          custom_available_qty: item.custom_available_qty,
-          custom_last_month_sales: item.custom_last_month_sales,
-          custom_previous_last_month_sales: item.custom_previous_last_month_sales,
-          custom_current_month_sales_2: item.custom_current_month_sales_2,
-          custom_tax: item.custom_tax,
-          custom_mrp: item.custom_mrp,
-          custom_last_month_purchase: item.custom_last_month_purchase,
-          custom_previous_last_month_purchase: item.custom_previous_last_month_purchase,
-          custom_current_month_purchase: item.custom_current_month_purchase,
-          custom_average_sales_last_3_months: avg_sales,
-          custom_average_purchase_last_3_months: avg_purchase
-        });
-
-        html += `<tr class="text-center align-middle">
-          <td><strong>${item.item_code}</strong></td>
-          <td>${item.custom_available_qty?.split(" / ")[0] ?? "-"}</td>
-          <td>${item.custom_available_qty?.split(" / ")[1] ?? "-"}</td>
-          <td>${item.custom_mrp ?? "-"}</td>
-          <td>${item.custom_tax ?? "-"}</td>
-          <td>${item.custom_current_month_sales_2 ?? "-"}</td>
-          <td>${item.custom_last_month_sales ?? "-"}</td>
-          <td>${item.custom_previous_last_month_sales ?? "-"}</td>
-          <td>${item.custom_current_month_purchase ?? "-"}</td>
-          <td>${item.custom_last_month_purchase ?? "-"}</td>
-          <td>${item.custom_previous_last_month_purchase ?? "-"}</td>
-          <td><span class="badge bg-success fs-6">${avg_sales.toFixed(2)}</span></td>
-          <td><span class="badge bg-warning text-dark fs-6">${avg_purchase.toFixed(2)}</span></td>
-        </tr>`;
       });
-
-      html += "</tbody></table></div>";
       frm.refresh_field("items");
-      frm.fields_dict.supplier_item_table.$wrapper.html(html);
     }
   });
 }
-function purchaseqtycal(frm) {}
+
+// Render HTML table inside supplier_item_table field
+function render_supplier_table(frm, data) {
+  function parseQty(text) {
+    if (!text || typeof text !== "string") return 0;
+    const match = text.trim().match(/^([\d.]+)/);
+    return match ? parseFloat(match[1]) : 0;
+  }
+
+  let html = `
+    <div style="overflow-x:auto; max-height:400px; overflow-y:auto;">
+      <table class="table table-bordered table-sm table-hover table-striped text-nowrap">
+        <thead class="bg-light sticky-top">
+          <tr class="text-center align-middle" style="background:#e9ecef;">
+            <th rowspan="2">Item Code</th>
+            <th colspan="2" style="background:#f7fafc;">Stock Qty</th>
+            <th colspan="2" style="background:#f8f9fa;">Item Info</th>
+            <th colspan="3" style="background:#e2f0d9;">Sales</th>
+            <th colspan="3" style="background:#fde9ea;">Purchases</th>
+            <th colspan="2" style="background:#fef9ec;">Avg (3M)</th>
+          </tr>
+          <tr class="text-center align-middle small text-muted">
+            <th>Stall</th><th>Store</th>
+            <th>MRP</th><th>Tax %</th>
+            <th>CM</th><th>LM</th><th>PLM</th>
+            <th>CM</th><th>LM</th><th>PLM</th>
+            <th>Sales</th><th>Purchase</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+  data.forEach((item) => {
+    const s1 = parseQty(item.custom_current_month_sales_2);
+    const s2 = parseQty(item.custom_last_month_sales);
+    const s3 = parseQty(item.custom_previous_last_month_sales);
+    const p1 = parseQty(item.custom_current_month_purchase);
+    const p2 = parseQty(item.custom_last_month_purchase);
+    const p3 = parseQty(item.custom_previous_last_month_purchase);
+
+    const avg_sales = (s1 + s2 + s3) / 3;
+    const avg_purchase = (p1 + p2 + p3) / 3;
+
+    html += `<tr class="text-center align-middle">
+      <td><strong>${item.item_code}</strong></td>
+      <td>${item.custom_available_qty?.split(" / ")[0] ?? "-"}</td>
+      <td>${item.custom_available_qty?.split(" / ")[1] ?? "-"}</td>
+      <td>${item.custom_mrp ?? "-"}</td>
+      <td>${item.custom_tax ?? "-"}</td>
+      <td>${item.custom_current_month_sales_2 ?? "-"}</td>
+      <td>${item.custom_last_month_sales ?? "-"}</td>
+      <td>${item.custom_previous_last_month_sales ?? "-"}</td>
+      <td>${item.custom_current_month_purchase ?? "-"}</td>
+      <td>${item.custom_last_month_purchase ?? "-"}</td>
+      <td>${item.custom_previous_last_month_purchase ?? "-"}</td>
+      <td><span class="badge bg-success fs-6">${avg_sales.toFixed(2)}</span></td>
+      <td><span class="badge bg-warning text-dark fs-6">${avg_purchase.toFixed(2)}</span></td>
+    </tr>`;
+  });
+
+  html += "</tbody></table></div>";
+  frm.fields_dict.supplier_item_table.$wrapper.html(html);
+}

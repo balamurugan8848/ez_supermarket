@@ -41,6 +41,7 @@
   "set_warehouse",
   "supplier_item_insights_section",
   "supplier_item_table",
+  "supplier_item_data_json",
   "items_section",
   "items",
   "section_break_26",
@@ -808,6 +809,13 @@
    "fieldname": "supplier_item_table",
    "fieldtype": "HTML",
    "label": "Supplier Item Table"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "supplier_item_data_json",
+   "fieldtype": "Long Text",
+   "hidden": 1,
+   "label": "Supplier Item Data"
   }
  ],
  "hide_toolbar": 1,
@@ -819,7 +827,7 @@
    "link_fieldname": "custom_reference_document"
   }
  ],
- "modified": "2025-07-14 19:01:12.262293",
+ "modified": "2025-07-16 10:33:43.174557",
  "modified_by": "Administrator",
  "module": "Ez-Supermarket",
  "name": "Purchase Master",
