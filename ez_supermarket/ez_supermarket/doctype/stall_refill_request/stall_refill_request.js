@@ -96,40 +96,41 @@ frappe.ui.form.on("Stall Refill Request", {
         // Navigate to the new unsaved document
         frappe.set_route("Form", "Stock Entry", doc.name);
       });
-    function fetch_items_sold(frm) {
-      let posting_date = frm.doc.posting_date;
-      let timestamp = frm.doc.timestamp;
-      let last_fetch_ts = frm.doc.last_fetch_timestamp;
-
-      frappe.call({
-        method:
-          "ez_supermarket.ez_supermarket.doctype.stall_refill_request.stall_refill_request.fetch_items_sold",
-        args: {
-          posting_date: posting_date,
-          timestamp: timestamp,
-          last_fetch_ts: last_fetch_ts,
-        },
-        callback: function (r) {
-          if (r.message) {
-            frm.doc.stall_request_details = [];
-            for (var i = 0; i < r.message.length; i++) {
-              var d = frm.add_child("stall_request_details");
-              d.item_code = r.message[i].item_code;
-              d.item_name = r.message[i].item_name;
-              d.uom = r.message[i].stock_uom;
-              d.qty_sold = r.message[i].qty_sold;
-              d.stall_location = r.message[i].stall_location;
-              d.store_location = r.message[i].store_location;
-              d.max_qty = r.message[i].max_qty;
-              d.store_warehouse = r.message[i].store_warehouse;
-              d.stall_warehouse = r.message[i].stall_warehouse;
-              d.refill_qty = d.qty_sold;
+      function fetch_items_sold(frm) {
+        let posting_date = frm.doc.posting_date;
+        let timestamp = frm.doc.timestamp;
+        let last_fetch_ts = frm.doc.last_fetch_timestamp;
+      
+        frappe.call({
+          method:
+            "ez_supermarket.ez_supermarket.doctype.stall_refill_request.stall_refill_request.fetch_items_sold",
+          args: {
+            posting_date: posting_date,
+            timestamp: timestamp,
+            last_fetch_ts: last_fetch_ts,
+          },
+          callback: function (r) {
+            if (r.message) {
+              frm.clear_table("stall_request_details");
+              r.message.forEach((item) => {
+                let d = frm.add_child("stall_request_details");
+                d.item_code = item.item_code;
+                d.item_name = item.item_name;
+                d.uom = item.stock_uom;
+                d.qty_sold = item.qty_sold;
+                d.stall_location = item.stall_location;
+                d.store_location = item.store_location;
+                d.max_qty = item.max_qty;
+                d.store_warehouse = item.store_warehouse;
+                d.stall_warehouse = item.stall_warehouse;
+                d.refill_qty = item.qty_sold;
+              });
+              frm.refresh_field("stall_request_details");
             }
-            frm.refresh_field("stall_request_details");
-          }
-        },
-      });
-    }
+          },
+        });
+      }
+      
     // Filter child table function
     function filterChildTable(frm) {
       const warehouseSettingsName = "Yb Supermarket Settings";

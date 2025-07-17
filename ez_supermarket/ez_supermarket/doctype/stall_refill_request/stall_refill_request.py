@@ -45,9 +45,6 @@ def set_timestamps(doc_str):
     return updated_doc
 
 
-
-
-
 @frappe.whitelist()
 def fetch_items_sold(timestamp, last_fetch_ts=None):
     data = [] # Define as list
